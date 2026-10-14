@@ -1,0 +1,28 @@
+node_modules/
+.next/
+out/
+build/
+
+# Local npm installer cache created by this environment
+npm-cache/
+
+# Secrets
+.env
+.env.local
+.env.*.local
+
+# Generated Prisma Client (recreated by `npm run prisma:generate`)
+src/generated/
+
+# Local databases
+*.db
+*.db-journal
+prisma/dev.db*
+.local-pg/
+
+# Logs / OS
+*.log
+.DS_Store
+Thumbs.db
+next-env.d.ts
+tsconfig.tsbuildinfo

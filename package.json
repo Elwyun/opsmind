@@ -1,0 +1,41 @@
+{
+  "name": "opsmind",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "OpsMind — AI Operational Intelligence prototype. Detects potential energy inefficiency from production, electricity, operating hours and weather context.",
+  "scripts": {
+    "dev": "node scripts/with-pg.mjs next dev",
+    "build": "next build",
+    "start": "node scripts/with-pg.mjs next start",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "prisma:generate": "prisma generate",
+    "db:push": "node scripts/with-pg.mjs npx prisma db push",
+    "db:seed": "node scripts/with-pg.mjs npx tsx prisma/seed.ts",
+    "db:setup": "node scripts/with-pg.mjs npm run _db:setup",
+    "_db:setup": "prisma db push && prisma generate && tsx prisma/seed.ts",
+    "demo:reset": "node scripts/with-pg.mjs npm run _demo:reset",
+    "_demo:reset": "prisma db push --force-reset && prisma generate && tsx prisma/seed.ts"
+  },
+  "dependencies": {
+    "@prisma/adapter-pg": "^7.10.0",
+    "@prisma/client": "^7.10.0",
+    "dotenv": "^17.2.3",
+    "next": "^16.4.0",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.5",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "embedded-postgres": "^17.10.0-beta.17",
+    "prisma": "^7.10.0",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2",
+    "vitest": "^5.0.3"
+  }
+}

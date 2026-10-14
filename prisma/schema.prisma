@@ -1,0 +1,144 @@
+// OpsMind data schema.
+//
+// Provider: PostgreSQL, as required by docs/SCHEMA.md and the hackathon
+// submission (deployed prototype on Google Cloud Run). Locally and in tests an
+// ephemeral PostgreSQL is used; the demo environment points at a managed
+// serverless Postgres (see .env.example).
+//
+// Native column types follow opsmind-project-docs/docs/SCHEMA.md:
+//   - date columns use @db.Date (one calendar day, no time component)
+//   - measurement and money columns use explicit Decimal precision
+// The datasource URL comes from prisma.config.ts (`DATABASE_URL`).
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Company {
+  id              String                 @id @default(cuid())
+  name            String
+  location        String?
+  createdAt       DateTime               @default(now())
+  updatedAt       DateTime               @updatedAt
+  operationalData DailyOperationalData[]
+  investigations  Investigation[]
+
+  @@index([name])
+}
+
+model DailyOperationalData {
+  id               String         @id @default(cuid())
+  companyId        String
+  date             DateTime       @db.Date
+  productionUnits  Int
+  electricityKwh   Decimal        @db.Decimal(12, 3)
+  operatingHours   Decimal        @db.Decimal(6, 2)
+  temperatureC     Decimal?       @db.Decimal(5, 2)
+  humidityPercent  Decimal?       @db.Decimal(5, 2)
+  weather          String?
+  electricityPrice Decimal        @db.Decimal(12, 2)
+  sourceType       DataSourceType @default(SIMULATED)
+  sourceName       String?
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+  company          Company        @relation(fields: [companyId], references: [id], onDelete: Cascade)
+
+  @@unique([companyId, date])
+  @@index([companyId, date])
+}
+
+model Investigation {
+  id                 String              @id @default(cuid())
+  companyId          String
+  targetDate         DateTime            @db.Date
+  status             InvestigationStatus @default(PENDING)
+  severity           AnomalySeverity?
+  actualIntensity    Decimal?            @db.Decimal(12, 6)
+  baselineIntensity  Decimal?            @db.Decimal(12, 6)
+  deviationPercent   Decimal?            @db.Decimal(8, 2)
+  potentialExcessKwh Decimal?            @db.Decimal(12, 3)
+  estimatedCost      Decimal?            @db.Decimal(14, 2)
+  currency           String              @default("IDR")
+  methodVersion      String              @default("baseline-v1")
+  modelName          String?
+  promptVersion      String?
+  resultJson         Json?
+  errorCode          String?
+  createdAt          DateTime            @default(now())
+  updatedAt          DateTime            @updatedAt
+  company            Company             @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  actions            ActionItem[]
+
+  @@index([companyId, targetDate])
+  @@index([status, createdAt])
+}
+
+model ActionItem {
+  id              String         @id @default(cuid())
+  investigationId String
+  title           String
+  description     String?
+  status          ActionStatus   @default(OPEN)
+  ownerName       String?
+  completionNote  String?
+  startedAt       DateTime?
+  completedAt     DateTime?
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+  investigation   Investigation  @relation(fields: [investigationId], references: [id], onDelete: Cascade)
+  verifications   Verification[]
+
+  @@index([investigationId, status])
+}
+
+model Verification {
+  id              String        @id @default(cuid())
+  actionItemId    String
+  beforeFrom      DateTime      @db.Date
+  beforeTo        DateTime      @db.Date
+  afterFrom       DateTime      @db.Date
+  afterTo         DateTime      @db.Date
+  beforeIntensity Decimal?      @db.Decimal(12, 6)
+  afterIntensity  Decimal?      @db.Decimal(12, 6)
+  changePercent   Decimal?      @db.Decimal(8, 2)
+  notes           String?
+  createdAt       DateTime      @default(now())
+  actionItem      ActionItem    @relation(fields: [actionItemId], references: [id], onDelete: Cascade)
+
+  @@index([actionItemId, createdAt])
+}
+
+enum DataSourceType {
+  SIMULATED
+  MANUAL
+  CSV_IMPORT
+  WEATHER_API
+  SENSOR
+}
+
+enum InvestigationStatus {
+  PENDING
+  RUNNING
+  COMPLETED
+  FAILED
+  INSUFFICIENT_DATA
+}
+
+enum AnomalySeverity {
+  INFO
+  LOW
+  MEDIUM
+  HIGH
+}
+
+enum ActionStatus {
+  OPEN
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
