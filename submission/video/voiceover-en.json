@@ -1,0 +1,114 @@
+{
+  "$comment": "Timed voice-over for the OpsMind demo. Times match the burned-in captions of OpsMind_Demo_Draft_EN.mp4 (clock derived from the recording run). `scripts/narrate-demo.mjs` synthesises this, fits each line into its window and muxes it into the video.",
+  "video": "OpsMind_Demo_Draft_EN.mp4",
+  "cues": [
+    {
+      "startMs": 92,
+      "endMs": 7763,
+      "section": "Intro",
+      "line": "OpsMind turns separated operations data into evidence a manager can check."
+    },
+    {
+      "startMs": 7763,
+      "endMs": 17736,
+      "section": "Problem",
+      "line": "Production, electricity, hours and weather sit in different sheets. A spike rarely explains itself, so nobody investigates it."
+    },
+    {
+      "startMs": 17736,
+      "endMs": 27484,
+      "section": "Overview",
+      "line": "Thirty labelled simulated days. Production stays flat while electricity rises; the app calculates the energy intensity, not the model."
+    },
+    {
+      "startMs": 27484,
+      "endMs": 35222,
+      "section": "Strongest candidate",
+      "line": "September seventeenth is thirty six percent above its trailing baseline: method baseline v1, a fifteen percent prototype threshold."
+    },
+    {
+      "startMs": 35222,
+      "endMs": 40972,
+      "section": "Investigation queue",
+      "line": "Two candidate days, each with deviation, severity and estimated impact."
+    },
+    {
+      "startMs": 40972,
+      "endMs": 57194,
+      "section": "Run the investigation",
+      "line": "The button calls the backend. Metrics are computed first; only then is the model asked to explain them."
+    },
+    {
+      "startMs": 57194,
+      "endMs": 67081,
+      "section": "Evidence",
+      "line": "Actual and baseline intensity, the comparison window and the deviation are stored with the result."
+    },
+    {
+      "startMs": 67081,
+      "endMs": 73617,
+      "section": "Evidence list",
+      "line": "The model cannot run SQL or shell, and citations of evidence it never saw are discarded."
+    },
+    {
+      "startMs": 73617,
+      "endMs": 80824,
+      "section": "Cost estimate",
+      "line": "Excess kilowatt hours times tariff. The formula and its assumptions are printed: a potential estimate, not a verified saving."
+    },
+    {
+      "startMs": 80824,
+      "endMs": 89474,
+      "section": "Live model",
+      "line": "Gemini wrote this from the supplied evidence only. Its answer is validated server side before it is stored."
+    },
+    {
+      "startMs": 89474,
+      "endMs": 96007,
+      "section": "Hypotheses",
+      "line": "Each possible factor lists the evidence that is still missing before it can be confirmed."
+    },
+    {
+      "startMs": 96007,
+      "endMs": 105137,
+      "section": "Recommended checks",
+      "line": "Recommended checks are human inspections. No autonomous equipment control is ever proposed."
+    },
+    {
+      "startMs": 105137,
+      "endMs": 115509,
+      "section": "Action",
+      "line": "The operator adds the check they intend to run, then marks it completed."
+    },
+    {
+      "startMs": 115509,
+      "endMs": 120317,
+      "section": "Verification",
+      "line": "Completing the action unlocks a before and after comparison."
+    },
+    {
+      "startMs": 120317,
+      "endMs": 126085,
+      "section": "Causation caveat",
+      "line": "It reports the observed change, and states that other factors are not controlled."
+    },
+    {
+      "startMs": 126086,
+      "endMs": 135021,
+      "section": "Data labels",
+      "line": "Rows are labelled simulated. Days without enough baseline are reported as insufficient, never estimated."
+    },
+    {
+      "startMs": 135021,
+      "endMs": 142538,
+      "section": "Health check",
+      "line": "The health endpoint reports database and model state. A failed call is stored as failed, with no invented answer."
+    },
+    {
+      "startMs": 142538,
+      "endMs": 157241,
+      "section": "Closing",
+      "line": "Next: a managed database, a Cloud Run deployment, real weather data and authentication, without dropping the evidence trail."
+    }
+  ]
+}

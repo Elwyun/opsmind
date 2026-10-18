@@ -26,8 +26,9 @@ Innovation & Creativity **25%** · User Experience & Solution Design **10%**.
 - [ ] Deployed URL smoke-tested: Overview loads, badge `SIMULATED DATA` visible, Investigate works
 - [x] `GEMINI_API_KEY` set locally: live **Gemini 3.8 Flash** (verified with `generateContent`);
       Cloud Run secret still pending. The mock remains the labelled fallback.
-- [x] Demo draft recorded (< 3 min): `submission/video/OpsMind_Demo_Draft_EN.mp4` (2:39)
-- [ ] Final video with voice-over against the deployed URL, uploaded (YouTube/Drive unlisted)
+- [x] Demo recorded (< 3 min) + narrated cut: `submission/video/OpsMind_Demo_Narrated_EN.mp4` (2:39,
+      captions burned in, synthetic voice fitted to the caption windows)
+- [ ] Final video against the deployed URL (address bar visible), uploaded (YouTube/Drive unlisted)
 - [x] Deck finalised and exported to PDF: `submission/OpsMind_AI_Deck_EN.pdf` and
       `submission/OpsMind_AI_Deck_ID.pdf`
 - [ ] Team formation finalised in the Hack2skill dashboard
@@ -75,9 +76,10 @@ gcloud run deploy opsmind --source . --region asia-southeast1 --allow-unauthenti
 
 ## 1b. Demo video draft
 
-`submission/video/` contains `OpsMind_Demo_Draft_EN.mp4` (2:39, 1600×900, H.264, captions
-burned in), `OpsMind_Demo_Draft_EN.srt`, a timed voice-over script
-(`OpsMind_Demo_Draft_EN.captions.md`), and a README with re-record instructions:
+`submission/video/` contains the narrated cut `OpsMind_Demo_Narrated_EN.mp4` (2:39, 1600×900,
+H.264 + AAC) and the silent take `OpsMind_Demo_Draft_EN.mp4`, plus the SRT, the caption table
+(`OpsMind_Demo_Draft_EN.captions.md`), the timed voice-over (`VOICEOVER_EN.md` + `voiceover-en.json`)
+and a README with re-record instructions:
 
 ```bash
 DEMO_URL=https://YOUR-SERVICE.run.app npm run demo:record
