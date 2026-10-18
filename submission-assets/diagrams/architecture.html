@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #ffffff; font-family: "Segoe UI", Arial, sans-serif; color: #0f172a; }
+  #diagram { width: 1600px; height: 700px; padding: 42px 64px; background: #ffffff; }
+  .eyebrow { font-size: 15px; letter-spacing: 0.14em; text-transform: uppercase; color: #0d7d78; font-weight: 700; }
+  h1 { font-size: 32px; margin: 6px 0 18px; letter-spacing: -0.02em; }
+  .row { display: flex; align-items: stretch; gap: 12px; margin-bottom: 10px; }
+  .box { flex: 1; border-radius: 12px; padding: 13px 16px; border: 1px solid #dbe3ec; background: #f8fafc; }
+  .box strong { display: block; font-size: 16px; margin-bottom: 4px; }
+  .box span { font-size: 12.5px; line-height: 1.4; color: #475569; display: block; }
+  .label { width: 120px; flex: none; display: flex; align-items: center; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: #64748b; font-weight: 700; }
+  .ui { border-top: 4px solid #0e3a5c; }
+  .api { border-top: 4px solid #0d7d78; }
+  .engine { border-top: 4px solid #0d7d78; }
+  .data { border-top: 4px solid #0e3a5c; }
+  .ai { border-top: 4px solid #b45309; }
+  .down { color: #94a3b8; text-align: center; font-size: 18px; line-height: 1; margin: 2px 0 8px; }
+  .note { margin-top: 12px; font-size: 12.5px; color: #64748b; border-left: 3px solid #f59e0b; padding-left: 10px; }
+  .accent { color: #0d7d78; font-weight: 700; }
+</style>
+</head>
+<body>
+<div id="diagram">
+  <div class="eyebrow">OpsMind · modular monolith</div>
+  <h1>Next.js on Cloud Run, PostgreSQL behind Prisma</h1>
+  <div class="row">
+    <div class="label">Experience</div>
+    <div class="box ui"><strong>Next.js 16 UI</strong><span>Overview · Investigations · Actions · Data · SIMULATED DATA labels</span></div>
+  </div>
+  <div class="down">↓</div>
+  <div class="row">
+    <div class="label">API boundary</div>
+    <div class="box api"><strong>Route Handlers</strong><span>Zod request validation · rate limits · correlation IDs</span></div>
+    <div class="box api"><strong>Services</strong><span>Investigations · actions · verifications · demo reset</span></div>
+  </div>
+  <div class="down">↓</div>
+  <div class="row">
+    <div class="label">Deterministic</div>
+    <div class="box engine"><strong>Analysis engine</strong><span>Intensity · baseline · deviation · cost formula</span></div>
+    <div class="box engine"><strong>Context builder</strong><span>Evidence E1–E13 · limitations · missing inputs</span></div>
+    <div class="box engine"><strong>Weather adapter</strong><span>Mock now · live provider is one swap point</span></div>
+  </div>
+  <div class="down">↓</div>
+  <div class="row">
+    <div class="label">Data & AI</div>
+    <div class="box data"><strong>Prisma 7 + PostgreSQL</strong><span>Company · daily records · investigations · actions · verifications</span></div>
+    <div class="box ai"><strong>Gemini API</strong><span>Server-side REST call · Zod output validation</span></div>
+    <div class="box ai"><strong>Labelled fallback</strong><span>Deterministic mock when no key is configured</span></div>
+  </div>
+  <div class="note"><span class="accent">Trust boundary:</span> the model never runs SQL or shell, never calculates the numbers, and its output is re-validated before storage.</div>
+</div>
+</body>
+</html>

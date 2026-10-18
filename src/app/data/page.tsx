@@ -25,9 +25,14 @@ export default async function DataPage({
 
   const from = isDateKey(params.from) ? params.from : (bounds.from ?? undefined);
   const to = isDateKey(params.to) ? params.to : (bounds.to ?? undefined);
+  // An inverted range is an expected input error, not a crash: report it in the
+  // page and fall back to the full available range instead of throwing.
+  const invalidRange = from !== undefined && to !== undefined && from > to;
+  const queryFrom = invalidRange ? (bounds.from ?? undefined) : from;
+  const queryTo = invalidRange ? (bounds.to ?? undefined) : to;
 
   const [rows, records] = await Promise.all([
-    listOperationalData({ companyId: company.id, from, to }),
+    listOperationalData({ companyId: company.id, from: queryFrom, to: queryTo }),
     // The engine always sees the full series so baselines stay consistent.
     listDailyRecords(company.id),
   ]);
@@ -49,6 +54,13 @@ export default async function DataPage({
         Rows marked <strong>SIMULATED</strong> come from the deterministic demo dataset. A real
         deployment would show MANUAL, CSV_IMPORT, WEATHER_API or SENSOR rows here.
       </Notice>
+
+      {invalidRange ? (
+        <Notice tone="error" title="Invalid date range">
+          The “From” date must be on or before the “To” date. The filter was not applied;
+          the full available range is shown below instead.
+        </Notice>
+      ) : null}
 
       <Card
         title="Filter"

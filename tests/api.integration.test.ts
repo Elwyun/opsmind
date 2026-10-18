@@ -1,8 +1,9 @@
-import { beforeAll, describe, expect, it } from "vitest";
+import { afterAll, beforeAll, describe, expect, it } from "vitest";
 
 import { GET as actionsGet, PATCH as actionsPatch, POST as actionsPost } from "../src/app/api/actions/route";
 import { GET as anomaliesGet } from "../src/app/api/anomalies/route";
 import { GET as companiesGet } from "../src/app/api/companies/route";
+import { GET as healthGet } from "../src/app/api/health/route";
 import { POST as demoResetPost } from "../src/app/api/demo/reset/route";
 import { GET as investigationByIdGet } from "../src/app/api/investigations/[id]/route";
 import { GET as investigationsGet, POST as investigationsPost } from "../src/app/api/investigations/route";
@@ -38,6 +39,19 @@ describe("GET /api/companies", () => {
     expect(Array.isArray(body.data)).toBe(true);
     expect(body.data.length).toBeGreaterThan(0);
     expect(body.data[0].name).toContain("Demo");
+  });
+});
+
+describe("GET /api/health", () => {
+  it("reports database and investigation-provider status without secrets", async () => {
+    const response = await healthGet(new Request("http://localhost/api/health"));
+    expect(response.status).toBe(200);
+
+    const body = await response.json();
+    expect(body.data.status).toBe("ok");
+    expect(body.data.database).toBe("ok");
+    expect(body.data.ai.provider).toBe("mock");
+    expect(body.data.ai.isLive).toBe(false);
   });
 });
 
@@ -299,6 +313,29 @@ describe("investigation detail and action lifecycle", () => {
     expect(response.status).toBe(400);
     const body = await response.json();
     expect(body.error.code).toBe("INVALID_RANGE");
+  });
+});
+
+describe("POST /api/demo/reset token protection", () => {
+  const previousToken = process.env.DEMO_RESET_TOKEN;
+
+  beforeAll(() => {
+    process.env.DEMO_RESET_TOKEN = "test-reset-token";
+  });
+
+  afterAll(() => {
+    if (previousToken === undefined) delete process.env.DEMO_RESET_TOKEN;
+    else process.env.DEMO_RESET_TOKEN = previousToken;
+  });
+
+  it("rejects a reset without the configured token", async () => {
+    const response = await demoResetPost(
+      new Request("http://localhost/api/demo/reset", { method: "POST" }),
+    );
+    expect(response.status).toBe(403);
+
+    const body = await response.json();
+    expect(body.error.code).toBe("RESET_TOKEN_REQUIRED");
   });
 });
 

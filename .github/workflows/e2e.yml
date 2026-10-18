@@ -1,0 +1,33 @@
+name: E2E Tests
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  test:
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: 20
+        cache: 'npm'
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Install Playwright Browsers
+      run: npx playwright install --with-deps
+
+    - name: Run E2E tests
+      run: npx playwright test
+      env:
+        # Embedded PostgreSQL on the project's default port; the Playwright
+        # webServer seeds the deterministic demo data before starting Next.js.
+        DATABASE_URL: "postgres://postgres:postgres@127.0.0.1:54329/opsmind"

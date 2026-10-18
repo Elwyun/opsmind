@@ -17,12 +17,22 @@ interface Envelope {
   error?: { code?: string; message?: string; details?: unknown; correlationId?: string };
 }
 
-async function request<T>(url: string, method: string, body?: unknown): Promise<ApiResult<T>> {
+async function request<T>(
+  url: string,
+  method: string,
+  body?: unknown,
+  extraHeaders?: Record<string, string>,
+): Promise<ApiResult<T>> {
+  const headers: Record<string, string> = {
+    ...(body === undefined ? {} : { "content-type": "application/json" }),
+    ...(extraHeaders ?? {}),
+  };
+
   let response: Response;
   try {
     response = await fetch(url, {
       method,
-      headers: body === undefined ? undefined : { "content-type": "application/json" },
+      headers: Object.keys(headers).length > 0 ? headers : undefined,
       body: body === undefined ? undefined : JSON.stringify(body),
     });
   } catch {
@@ -53,8 +63,12 @@ async function request<T>(url: string, method: string, body?: unknown): Promise<
   return { ok: true, data: payload?.data as T };
 }
 
-export function postJson<T>(url: string, body: unknown): Promise<ApiResult<T>> {
-  return request<T>(url, "POST", body);
+export function postJson<T>(
+  url: string,
+  body: unknown,
+  headers?: Record<string, string>,
+): Promise<ApiResult<T>> {
+  return request<T>(url, "POST", body, headers);
 }
 
 export function patchJson<T>(url: string, body: unknown): Promise<ApiResult<T>> {

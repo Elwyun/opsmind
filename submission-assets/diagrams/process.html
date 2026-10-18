@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #ffffff; font-family: "Segoe UI", Arial, sans-serif; color: #0f172a; }
+  #diagram { width: 1600px; height: 700px; padding: 56px 64px; background: #ffffff; }
+  .eyebrow { font-size: 16px; letter-spacing: 0.14em; text-transform: uppercase; color: #0d7d78; font-weight: 700; }
+  h1 { font-size: 34px; margin: 8px 0 10px; letter-spacing: -0.02em; }
+  .lede { font-size: 17px; color: #475569; margin: 0 0 34px; }
+  .flow { display: flex; align-items: stretch; gap: 12px; }
+  .step { flex: 1; background: #f8fafc; border: 1px solid #dbe3ec; border-top: 4px solid #0d7d78; border-radius: 14px; padding: 20px 18px; min-height: 300px; }
+  .step:nth-child(3) { border-top-color: #0e3a5c; }
+  .step:nth-child(5) { border-top-color: #0e3a5c; }
+  .step:nth-child(7) { border-top-color: #b45309; }
+  .step:nth-child(9) { border-top-color: #0d7d78; }
+  .num { width: 34px; height: 34px; border-radius: 50%; background: #0e3a5c; color: #fff; font-weight: 700; display: flex; align-items: center; justify-content: center; font-size: 15px; margin-bottom: 14px; }
+  .step h2 { font-size: 19px; margin: 0 0 10px; line-height: 1.25; }
+  .step p { font-size: 14px; line-height: 1.5; color: #475569; margin: 0; }
+  .arrow { display: flex; align-items: center; color: #94a3b8; font-size: 28px; font-weight: 700; padding: 0 2px; }
+  .foot { margin-top: 28px; font-size: 13.5px; color: #64748b; border-left: 3px solid #f59e0b; padding-left: 12px; }
+</style>
+</head>
+<body>
+<div id="diagram">
+  <div class="eyebrow">OpsMind · how an investigation flows</div>
+  <h1>From daily records to a human decision</h1>
+  <p class="lede">The app calculates every number; the model only explains the supplied evidence.</p>
+  <div class="flow">
+    <div class="step"><div class="num">1</div><h2>Daily records</h2><p>Production, electricity, operating hours, tariff and weather context for each day.</p></div>
+    <div class="arrow">→</div>
+    <div class="step"><div class="num">2</div><h2>Deterministic engine</h2><p>Intensity = kWh / unit. Trailing baseline, deviation, threshold and cost formula.</p></div>
+    <div class="arrow">→</div>
+    <div class="step"><div class="num">3</div><h2>Evidence context</h2><p>Thirteen evidence items (E1–E13), explicit limitations and missing inputs.</p></div>
+    <div class="arrow">→</div>
+    <div class="step"><div class="num">4</div><h2>Gemini explanation</h2><p>Facts, hypotheses with missing evidence, and human checks. JSON validated server-side.</p></div>
+    <div class="arrow">→</div>
+    <div class="step"><div class="num">5</div><h2>Human action</h2><p>Open → in progress → completed. Before/after observed change with a causation caveat.</p></div>
+  </div>
+  <div class="foot">If the model fails or returns invalid output, the investigation is stored as FAILED — no substitute answer is invented.</div>
+</div>
+</body>
+</html>

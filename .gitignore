@@ -26,3 +26,14 @@ prisma/dev.db*
 Thumbs.db
 next-env.d.ts
 tsconfig.tsbuildinfo
+
+# Generated test artifacts
+playwright-report/
+test-results/
+blob-report/
+submission-assets/deck-preview/
+
+# Local deck-build tooling (python-pptx, PyMuPDF)
+.deck-tools/
+__pycache__/
+*.pyc

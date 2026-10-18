@@ -11,6 +11,9 @@ given and suggests what a person should check.**
 > (local embedded instance for development, managed serverless Postgres for deployment — see
 > [Deployment](#deployment-google-cloud-run)). All demo data is synthetic and labelled
 > `SIMULATED DATA`. No saving has been verified.
+>
+> Submission artifacts live in [`submission/`](./submission/); the deployment and 3-minute demo
+> checklist is in [`docs/DEPLOY_AND_DEMO.md`](./docs/DEPLOY_AND_DEMO.md).
 
 ---
 
@@ -33,6 +36,7 @@ Environment (`.env`, already present; see `.env.example`):
 | `TEST_DATABASE_URL` | Optional: run the test suite against an existing PostgreSQL instead of its own embedded instance. |
 | `GEMINI_API_KEY` | **Server-side only.** Empty ⇒ the deterministic mock runs instead of Gemini. |
 | `GEMINI_MODEL` | Gemini model name, default `gemini-2.5-flash`. |
+| `DEMO_RESET_TOKEN` | Optional: when set, `POST /api/demo/reset` requires `x-demo-reset-token`. Recommended for a public demo. |
 
 ### Scripts
 
@@ -41,7 +45,7 @@ Environment (`.env`, already present; see `.env.example`):
 | `npm run dev` / `start` | Next.js 16 (Turbopack) with the local PostgreSQL started automatically. |
 | `npm run build` | Production build (no database needed — all routes are dynamic). |
 | `npm run typecheck` | `tsc --noEmit`, strict. |
-| `npm test` | Vitest, 72 tests, against an isolated embedded PostgreSQL on port 54330. |
+| `npm test` | Vitest, 79 tests, against an isolated embedded PostgreSQL on port 54330. |
 | `npm run db:setup` | Start local PostgreSQL + push schema + generate client + seed. |
 | `npm run demo:reset` | Wipe and re-seed the deterministic demo data. |
 
@@ -128,7 +132,7 @@ tests/                        analysis, validation, AI, demo dataset, HTTP-level
 
 ## Tests
 
-`npm test` runs 72 tests offline (no network, no API key):
+`npm test` runs 79 tests offline (no network, no API key):
 
 - engine: intensity, zero production, missing values, baseline window/insufficient baseline,
   threshold boundary, severity bands, cost formulas, zero excess, determinism, window means;
@@ -160,6 +164,18 @@ gcloud run deploy opsmind --source . \
 
 Leave `GEMINI_API_KEY` unset to run the deployed demo with the deterministic mock investigator —
 it is labelled "Simulated model" in the UI and never presented as live AI.
+
+For a public demo, also set `DEMO_RESET_TOKEN` (preferably via Secret Manager). The reset button
+prompts for it, and `POST /api/demo/reset` rejects requests without the matching header. The AI and
+reset endpoints are rate-limited per Cloud Run instance; put a shared limit at the gateway if the
+service scales beyond one instance.
+
+Smoke-test a deployment without triggering an investigation:
+
+```bash
+curl -fsS https://YOUR-SERVICE.run.app/api/health
+# {"data":{"status":"ok","database":"ok","ai":{"provider":"gemini","isLive":true,...}}}
+```
 
 ---
 

@@ -21,7 +21,10 @@ export default async function OverviewPage() {
 
   const summary = await getDashboardSummary({ companyId: company.id });
   const provider = getInvestigationProviderInfo();
-  const topCandidate = summary.anomalies[0] ?? null;
+  // The queue is ordered newest-first, so pick the largest deviation explicitly
+  // instead of assuming the first row is the strongest candidate.
+  const topCandidate =
+    [...summary.anomalies].sort((a, b) => b.deviationPercent - a.deviationPercent)[0] ?? null;
   const trend = summary.trend;
 
   return (
