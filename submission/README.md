@@ -21,7 +21,7 @@ The deck's link slide deliberately says “see the submission form” instead of
 the public repository, demo video and deployed URL exist, rebuild the deck with the real values:
 
 ```bash
-GITHUB_URL="https://github.com/ACCOUNT/opsmind" \
+GITHUB_URL="https://github.com/Elwyun/opsmind" \
 VIDEO_URL="https://youtu.be/..." \
 DEMO_URL="https://opsmind-....run.app" \
 PYTHONPATH=./.deck-tools python scripts/build_deck.py

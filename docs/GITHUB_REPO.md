@@ -36,7 +36,7 @@ ai-builder-cup
 Create an empty **public** repository named `opsmind` in the GitHub UI, then:
 
 ```bash
-git remote add origin https://github.com/ACCOUNT/opsmind.git
+git remote add origin https://github.com/Elwyun/opsmind.git
 git push -u origin main
 ```
 
