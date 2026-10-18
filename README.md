@@ -35,7 +35,7 @@ Environment (`.env`, already present; see `.env.example`):
 | `DATABASE_URL` | PostgreSQL connection string. Local default: the embedded instance on `127.0.0.1:54329`. |
 | `TEST_DATABASE_URL` | Optional: run the test suite against an existing PostgreSQL instead of its own embedded instance. |
 | `GEMINI_API_KEY` | **Server-side only.** Empty ⇒ the deterministic mock runs instead of Gemini. |
-| `GEMINI_MODEL` | Gemini model name, default `gemini-2.5-flash`. |
+| `GEMINI_MODEL` | Gemini model name, default `gemini-3.8-flash`. |
 | `DEMO_RESET_TOKEN` | Optional: when set, `POST /api/demo/reset` requires `x-demo-reset-token`. Recommended for a public demo. |
 
 ### Scripts
@@ -48,6 +48,7 @@ Environment (`.env`, already present; see `.env.example`):
 | `npm test` | Vitest, 79 tests, against an isolated embedded PostgreSQL on port 54330. |
 | `npm run db:setup` | Start local PostgreSQL + push schema + generate client + seed. |
 | `npm run demo:reset` | Wipe and re-seed the deterministic demo data. |
+| `npm run demo:record` | Record the demo draft with Playwright + ffmpeg (`DEMO_URL` defaults to `http://localhost:3000`). |
 
 The header has a **Reset demo data** button that hits `POST /api/demo/reset`.
 

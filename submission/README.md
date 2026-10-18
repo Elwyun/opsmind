@@ -10,6 +10,11 @@
 | `OpsMind_AI_Deck_ID.pdf` | PDF export of the Indonesian deck |
 | `../submission-assets/screenshots/` | Real screenshots used in the deck |
 | `../submission-assets/diagrams/` | Process and architecture diagrams used in the deck |
+| `SUBMISSION_TEXT.md` | Form-ready copy (English) + Indonesian summary |
+| `video/OpsMind_Demo_Draft_EN.mp4` | 2:39 screen-only demo draft, captions burned in |
+| `video/OpsMind_Demo_Draft_EN.srt` | Captions as a subtitle file |
+| `video/OpsMind_Demo_Draft_EN.captions.md` | Timed voice-over script |
+| `video/README.md` | Video metadata, re-record command, final checklist |
 
 The deck uses the official 16-slide template. Template placeholders, fake example URLs, and
 unsupported claims were removed. The snapshots show the deterministic simulated dataset and the

@@ -52,7 +52,7 @@ gcloud run deploy "$SERVICE" \
   --source . \
   --region "$REGION" \
   --allow-unauthenticated \
-  --set-env-vars "DATABASE_URL=$DATABASE_URL,GEMINI_MODEL=gemini-2.5-flash" \
+  --set-env-vars "DATABASE_URL=$DATABASE_URL,GEMINI_MODEL=gemini-3.8-flash" \
   --set-secrets "GEMINI_API_KEY=gemini-api-key:latest,DEMO_RESET_TOKEN=demo-reset-token:latest"
 ```
 
@@ -69,7 +69,7 @@ curl -fsS "$URL/api/health"
 Expected shape:
 
 ```json
-{"data":{"status":"ok","database":"ok","ai":{"provider":"gemini","isLive":true,"modelName":"gemini-2.5-flash"}}}
+{"data":{"status":"ok","database":"ok","ai":{"provider":"gemini","isLive":true,"modelName":"gemini-3.8-flash"}}}
 ```
 
 If `provider` is `mock` and `isLive` is `false`, the Gemini secret is not reaching the service.

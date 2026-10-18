@@ -23,17 +23,33 @@ Innovation & Creativity **25%** · User Experience & Solution Design **10%**.
       `DATABASE_URL="postgres://..." npm run db:setup`
 - [ ] Deployed: `gcloud run deploy opsmind --source .` (see README → Deployment)
 - [ ] Deployed URL smoke-tested: Overview loads, badge `SIMULATED DATA` visible, Investigate works
-- [ ] `GEMINI_API_KEY` decision: live Gemini (preferred for the 40% Gen AI criterion) or the
-      labelled mock fallback — must never be presented as live AI when mocked
-- [ ] Video recorded (< 3 min), uploaded (YouTube/Drive unlisted), screenshot attached
+- [x] `GEMINI_API_KEY` set locally: live **Gemini 3.8 Flash** (verified with `generateContent`);
+      Cloud Run secret still pending. The mock remains the labelled fallback.
+- [x] Demo draft recorded (< 3 min): `submission/video/OpsMind_Demo_Draft_EN.mp4` (2:39)
+- [ ] Final video with voice-over against the deployed URL, uploaded (YouTube/Drive unlisted)
 - [x] Deck finalised and exported to PDF: `submission/OpsMind_AI_Deck_EN.pdf` and
       `submission/OpsMind_AI_Deck_ID.pdf`
 - [ ] Team formation finalised in the Hack2skill dashboard
 
 Completed locally on 18 Oct 2026: deck + screenshots + PDF, `/api/health`, rate limits for
-investigations and demo reset, optional `DEMO_RESET_TOKEN`, and a clean local commit. Still missing:
-public GitHub remote, deployed URL, video, and a live Gemini key (the app currently uses the
-labelled mock).
+investigations and demo reset, optional `DEMO_RESET_TOKEN`, live Gemini 3.8 Flash, a 2:39 demo
+draft (screen-only, captions), and form-ready copy in [`submission/SUBMISSION_TEXT.md`](./submission/SUBMISSION_TEXT.md).
+Still missing: the public repo push, a Neon/Cloud SQL `DATABASE_URL`, the Cloud Run deployment,
+and the final voice-over video.
+
+## 1b. Demo video draft
+
+`submission/video/` contains `OpsMind_Demo_Draft_EN.mp4` (2:39, 1600×900, H.264, captions
+burned in), `OpsMind_Demo_Draft_EN.srt`, a timed voice-over script
+(`OpsMind_Demo_Draft_EN.captions.md`), and a README with re-record instructions:
+
+```bash
+DEMO_URL=https://YOUR-SERVICE.run.app npm run demo:record
+```
+
+The draft was recorded against a local production build with live Gemini (`Live model` in the
+UI). The final take must show the deployed URL and include the voice-over; no claim in the
+video depends on the local URL.
 
 ## 2. Video shot list (3 minutes, single screen recording, voice-over optional)
 
