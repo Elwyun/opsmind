@@ -16,7 +16,7 @@ this file should be presented as deployed until those two exist.
 | Team | **ABB Catalyst** (lead: Alwi Hamzah), JAPAC — Indonesia |
 | Track fit | Google Cloud AI Builder Cup 2026 — Gen AI application |
 | Public repository | https://github.com/Elwyun/opsmind |
-| Deployed demo | `[PENDING — Cloud Run URL]` |
+| Deployed demo | https://opsmind-one.vercel.app (Next.js on Vercel + Neon + live Gemini; Cloud Run pending billing) |
 | Demo video | `[PENDING — unlisted YouTube/Drive link]` |
 | Deck | `submission/OpsMind_AI_Deck_EN.pdf` (ID version alongside) |
 | AI model | Gemini `gemini-3.8-flash` (live in local prototype; deployment pending) |
@@ -207,7 +207,7 @@ savings require controlled studies on real metered data.
 | Requirement | Value |
 | --- | --- |
 | Public GitHub repository | https://github.com/Elwyun/opsmind |
-| Deployed prototype (Cloud Run) | `[PENDING]` |
+| Deployed prototype | https://opsmind-one.vercel.app |
 | Video demo (3–4 min) | `[PENDING]` — file ready: `submission/video/OpsMind_Demo_Narrated_EN.mp4` (3:27) |
 | Deck (PDF) | `submission/OpsMind_AI_Deck_EN.pdf`, `submission/OpsMind_AI_Deck_ID.pdf` |
 

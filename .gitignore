@@ -48,5 +48,8 @@ submission-assets/deck-preview/
 # Local deck-build tooling (python-pptx, PyMuPDF)
 .deck-tools/
 __pycache__/
-*.pyc
-.neon
+*.pyc.neon
+
+# Vercel project link (ids only, no secrets; kept local)
+.vercel
+

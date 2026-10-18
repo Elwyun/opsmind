@@ -43,7 +43,8 @@ DEMO_URL=http://localhost:3100 npm run demo:record
 Against the deployed service:
 
 ```bash
-DEMO_URL=https://YOUR-SERVICE.run.app npm run demo:record
+DEMO_URL=https://opsmind-one.vercel.app npm run demo:record
+npm run demo:voiceover
 ```
 
 The script resets the demo data, drives the journey in Chromium, adds the pointer

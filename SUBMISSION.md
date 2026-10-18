@@ -22,8 +22,10 @@ Innovation & Creativity **25%** · User Experience & Solution Design **10%**.
 - [ ] Repo description + topics (`nextjs`, `prisma`, `gemini`, `google-cloud`, `energy-efficiency`)
 - [x] Neon database created and seeded: project `morning-lake-93206231` (opsmind, `aws-ap-southeast-1`),
       30 simulated days, `.env` uses the pooled URL (see §1c)
-- [ ] Deployed on Cloud Run — **blocked: the GCP project has no billing account** (see §1c)
-- [ ] Deployed URL smoke-tested: Overview loads, badge `SIMULATED DATA` visible, Investigate works
+- [x] Deployed and smoke-tested on **Vercel**: https://opsmind-one.vercel.app (Cloud Run still blocked
+      on GCP billing — see §1c)
+- [x] Deployed URL smoke-tested: Overview `SIMULATED DATA`, `+36.0%` queue row, live investigation
+      (`COMPLETED`, 13 evidence, 3 hypotheses, `Live model`)
 - [x] `GEMINI_API_KEY` set locally: live **Gemini 3.8 Flash** (verified with `generateContent`);
       Cloud Run secret still pending. The mock remains the labelled fallback.
 - [x] Demo recorded + narrated: `submission/video/OpsMind_Demo_Narrated_EN.mp4` (3:27, captions burned
@@ -53,6 +55,22 @@ To re-seed or re-link:
 npx neonctl link --project-id morning-lake-93206231 --org-id org-round-frost-91581060 --no-env-pull -y
 DATABASE_URL="$DIRECT_NEON_URL" npm run db:setup
 ```
+
+**Vercel — live.** Project `alwihamzah-9399/opsmind` → https://opsmind-one.vercel.app
+(`opsmind-cued1i3re-alwihamzah-9399.vercel.app` is the deployment URL behind the alias).
+`vercel.json` runs `prisma generate && next build`. Production env vars: `DATABASE_URL` (Neon
+pooled), `GEMINI_API_KEY`, `GEMINI_MODEL=gemini-3.8-flash`; `DEMO_RESET_TOKEN` is intentionally
+unset for the local demo. Verified from the deployed URL:
+
+```
+GET  /api/health   → {"status":"ok","database":"ok","ai":{"provider":"gemini","isLive":true,"modelName":"gemini-3.8-flash"}}
+GET  /             → SIMULATED DATA, +36.0%, 17 Sep 2026
+POST /api/investigations {companyId, date: 2026-09-17}
+                   → COMPLETED, severity MEDIUM, deviation 36, 13 evidence, 3 hypotheses, isLive true
+GET  /investigations/<id> → Anomaly summary, Evidence, AI summary, Live model, Limitations
+```
+
+Redeploy with `vercel --prod`, or connect Git with `vercel git connect` for auto-deploys.
 
 **Cloud Run — blocked.** `gcloud` 589.0.0 is installed locally and authenticated as
 `alwihamzah@gmail.com`, but `gcloud billing projects describe` reports

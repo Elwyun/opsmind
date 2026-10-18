@@ -2,8 +2,14 @@
 
 ## Prototype Link Deployed on GCP or Cloud run
 
-- Live prototype: `[PENDING — Vercel URL until Cloud Run billing is enabled]`
-- Cloud Run target (when billing is enabled): `gcloud run deploy opsmind --source . --region asia-southeast1`
+```
+https://opsmind-one.vercel.app
+```
+
+Vercel hosts the Next.js app; the database is Neon and the model is live Gemini 3.8 Flash.
+`/api/health` reports `{"status":"ok","database":"ok","ai":{"provider":"gemini","isLive":true}}`.
+A Cloud Run deployment is still prepared (`Dockerfile`, `docs/DEPLOY_AND_DEMO.md`) for when GCP
+billing is enabled; the Vercel URL is the working prototype for this submission.
 
 ## Final Prototype PPT/Deck converted into PDF
 

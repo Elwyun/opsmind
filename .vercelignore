@@ -1,0 +1,11 @@
+# Heavy local artifacts that are not needed for the build.
+.demo-recording/
+.local-pg/
+.tools/
+.deck-tools/
+playwright-report/
+test-results/
+submission/video/
+submission-assets/
+*.pptx
+opsmind-project-docs.zip
