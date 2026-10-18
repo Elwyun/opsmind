@@ -208,7 +208,7 @@ savings require controlled studies on real metered data.
 | --- | --- |
 | Public GitHub repository | https://github.com/Elwyun/opsmind |
 | Deployed prototype (Cloud Run) | `[PENDING]` |
-| Video demo (< 3 min) | `[PENDING]` |
+| Video demo (3–4 min) | `[PENDING]` — file ready: `submission/video/OpsMind_Demo_Narrated_EN.mp4` (3:27) |
 | Deck (PDF) | `submission/OpsMind_AI_Deck_EN.pdf`, `submission/OpsMind_AI_Deck_ID.pdf` |
 
 ---

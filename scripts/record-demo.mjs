@@ -31,7 +31,8 @@ const cuesPath = path.join(outDir, "OpsMind_Demo_Draft_EN.captions.md");
 const rawDir = path.join(root, ".demo-recording", "raw");
 
 const VIEWPORT = { width: 1600, height: 900 };
-const MAX_SECONDS = 179;
+// The submission form asks for a 3–4 minute demo; the recording must stay inside it.
+const MAX_SECONDS = 239;
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -223,9 +224,18 @@ async function smoothScroll(page, pixels) {
 }
 
 async function scrollTo(page, locator, block = "center") {
-  const handle = await locator.first().elementHandle().catch(() => null);
-  if (!handle) return;
-  await handle.evaluate(
+  const target = locator.first();
+  // A bounded wait: a missing target must not stall the take for the full
+  // page timeout, it should just be skipped and reported.
+  const attached = await target
+    .waitFor({ state: "attached", timeout: 10_000 })
+    .then(() => true)
+    .catch(() => false);
+  if (!attached) {
+    console.warn(`[demo] scroll target not found, skipping: ${block}`);
+    return;
+  }
+  await target.evaluate(
     (element, where) => element.scrollIntoView({ block: where, behavior: "smooth" }),
     block,
   );
@@ -289,9 +299,9 @@ async function main() {
   await mkdir(rawDir, { recursive: true });
 
   const watchdog = setTimeout(() => {
-    console.error("[demo] watchdog: the take exceeded 300s, stopping");
+    console.error("[demo] watchdog: the take exceeded 360s, stopping");
     process.exit(4);
-  }, 300_000);
+  }, 360_000);
   watchdog.unref?.();
 
   // Deterministic starting point for the take.
@@ -343,7 +353,7 @@ async function main() {
         "Draft screen recording · every figure comes from a deterministic simulated dataset · no saving has been verified.",
     }),
   );
-  await sleep(7500);
+  await sleep(9000);
 
   // 2. Problem ---------------------------------------------------------------
   step("problem card");
@@ -367,7 +377,7 @@ async function main() {
       foot: "OpsMind: the app calculates the metrics, then the model explains only that evidence.",
     }),
   );
-  await sleep(8500);
+  await sleep(10000);
 
   // 3. Overview --------------------------------------------------------------
   step("overview");
@@ -395,10 +405,34 @@ async function main() {
   await moveTo(page, page.getByText("+36.0%").first());
   await sleep(5200);
 
+  // 3b. How it works ---------------------------------------------------------
+  step("architecture card");
+  await caption(
+    page,
+    "HOW IT WORKS",
+    "One pipeline, no black box",
+    "Route handlers validate the request, the analysis engine computes the metrics, a context builder packages 13 evidence items, Gemini answers as JSON, and Zod validates it before it is stored.",
+  );
+  await hideCaption(page);
+  await page.setContent(
+    cardHtml({
+      eyebrow: "How it works",
+      title: "Deterministic maths first, one model call second.",
+      lead: "Every number comes from stored records and a versioned formula. The model never calculates anything.",
+      bullets: [
+        "Route handlers validate the request; the analysis engine computes intensity, the trailing baseline and the deviation.",
+        "A context builder packages 13 evidence items; Gemini answers as JSON; Zod validates the answer before it is stored.",
+        "Next.js · Prisma on managed PostgreSQL (Neon) · Gemini 3.8 Flash · containerised for Cloud Run.",
+      ],
+      foot: "The model has no SQL or shell access, and the API key never reaches the browser.",
+    }),
+  );
+  await sleep(21000);
+
   // 4. Queue + investigate ---------------------------------------------------
   step("investigation queue");
-  await page.getByRole("navigation", { name: "Main sections" }).getByRole("link", { name: "Investigations" }).click();
-  await page.waitForURL(/\/investigations$/);
+  // The explainer card replaced the document, so return to the app by URL.
+  await page.goto(`${baseUrl}/investigations`, { waitUntil: "networkidle" });
   await caption(
     page,
     "02 · INVESTIGATE",
@@ -481,8 +515,35 @@ async function main() {
   await scrollTo(page, page.getByRole("heading", { name: "Limitations" }), "start");
   await sleep(2600);
 
+  // 6b. Trust by design ------------------------------------------------------
+  step("trust card");
+  const detailUrl = page.url();
+  await caption(
+    page,
+    "TRUST BY DESIGN",
+    "The app shows its work",
+    "Every claim cites evidence IDs, failures are stored as failures, and simulated data is labelled everywhere — the mock is never presented as live AI.",
+  );
+  await hideCaption(page);
+  await page.setContent(
+    cardHtml({
+      eyebrow: "Trust by design",
+      title: "The app shows its work.",
+      bullets: [
+        "Every claim cites evidence IDs; citations to evidence that was not supplied are discarded and counted.",
+        "Timeouts, quota limits and schema mismatches are stored as FAILED — no substitute answer is invented.",
+        "Simulated data is labelled everywhere, and the mock investigator is never presented as live AI.",
+      ],
+      foot: "The AI suggests checks; a person decides what to do and records what was done.",
+    }),
+  );
+  await sleep(17000);
+
   // 7. Action + verification -------------------------------------------------
   step("action flow");
+  // Return to the stored investigation after the card.
+  await page.goto(detailUrl, { waitUntil: "networkidle" });
+  await page.getByRole("heading", { name: "Add an action" }).waitFor({ timeout: 30_000 });
   await caption(
     page,
     "06 · ACTION",
@@ -553,7 +614,7 @@ async function main() {
     page,
     "09 · CLOSING",
     "A working, honest prototype",
-    "Next: managed PostgreSQL, a Cloud Run deployment, real weather data and authentication — without dropping the evidence trail.",
+    "Next: a Cloud Run deployment, real weather data, CSV import and authentication — without dropping the evidence trail.",
   );
   await hideCaption(page);
   await page.setContent(
@@ -571,7 +632,7 @@ async function main() {
         "Repository, deployed URL and final voice-over are added before submission · ABB Catalyst · OpsMind",
     }),
   );
-  await sleep(9000);
+  await sleep(15000);
 
   // Finalise ----------------------------------------------------------------
   const video = page.video();

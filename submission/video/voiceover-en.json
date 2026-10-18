@@ -1,114 +1,27 @@
 {
-  "$comment": "Timed voice-over for the OpsMind demo. Times match the burned-in captions of OpsMind_Demo_Draft_EN.mp4 (clock derived from the recording run). `scripts/narrate-demo.mjs` synthesises this, fits each line into its window and muxes it into the video.",
-  "video": "OpsMind_Demo_Draft_EN.mp4",
-  "cues": [
-    {
-      "startMs": 92,
-      "endMs": 7763,
-      "section": "Intro",
-      "line": "OpsMind turns separated operations data into evidence a manager can check."
-    },
-    {
-      "startMs": 7763,
-      "endMs": 17736,
-      "section": "Problem",
-      "line": "Production, electricity, hours and weather sit in different sheets. A spike rarely explains itself, so nobody investigates it."
-    },
-    {
-      "startMs": 17736,
-      "endMs": 27484,
-      "section": "Overview",
-      "line": "Thirty labelled simulated days. Production stays flat while electricity rises; the app calculates the energy intensity, not the model."
-    },
-    {
-      "startMs": 27484,
-      "endMs": 35222,
-      "section": "Strongest candidate",
-      "line": "September seventeenth is thirty six percent above its trailing baseline: method baseline v1, a fifteen percent prototype threshold."
-    },
-    {
-      "startMs": 35222,
-      "endMs": 40972,
-      "section": "Investigation queue",
-      "line": "Two candidate days, each with deviation, severity and estimated impact."
-    },
-    {
-      "startMs": 40972,
-      "endMs": 57194,
-      "section": "Run the investigation",
-      "line": "The button calls the backend. Metrics are computed first; only then is the model asked to explain them."
-    },
-    {
-      "startMs": 57194,
-      "endMs": 67081,
-      "section": "Evidence",
-      "line": "Actual and baseline intensity, the comparison window and the deviation are stored with the result."
-    },
-    {
-      "startMs": 67081,
-      "endMs": 73617,
-      "section": "Evidence list",
-      "line": "The model cannot run SQL or shell, and citations of evidence it never saw are discarded."
-    },
-    {
-      "startMs": 73617,
-      "endMs": 80824,
-      "section": "Cost estimate",
-      "line": "Excess kilowatt hours times tariff. The formula and its assumptions are printed: a potential estimate, not a verified saving."
-    },
-    {
-      "startMs": 80824,
-      "endMs": 89474,
-      "section": "Live model",
-      "line": "Gemini wrote this from the supplied evidence only. Its answer is validated server side before it is stored."
-    },
-    {
-      "startMs": 89474,
-      "endMs": 96007,
-      "section": "Hypotheses",
-      "line": "Each possible factor lists the evidence that is still missing before it can be confirmed."
-    },
-    {
-      "startMs": 96007,
-      "endMs": 105137,
-      "section": "Recommended checks",
-      "line": "Recommended checks are human inspections. No autonomous equipment control is ever proposed."
-    },
-    {
-      "startMs": 105137,
-      "endMs": 115509,
-      "section": "Action",
-      "line": "The operator adds the check they intend to run, then marks it completed."
-    },
-    {
-      "startMs": 115509,
-      "endMs": 120317,
-      "section": "Verification",
-      "line": "Completing the action unlocks a before and after comparison."
-    },
-    {
-      "startMs": 120317,
-      "endMs": 126085,
-      "section": "Causation caveat",
-      "line": "It reports the observed change, and states that other factors are not controlled."
-    },
-    {
-      "startMs": 126086,
-      "endMs": 135021,
-      "section": "Data labels",
-      "line": "Rows are labelled simulated. Days without enough baseline are reported as insufficient, never estimated."
-    },
-    {
-      "startMs": 135021,
-      "endMs": 142538,
-      "section": "Health check",
-      "line": "The health endpoint reports database and model state. A failed call is stored as failed, with no invented answer."
-    },
-    {
-      "startMs": 142538,
-      "endMs": 157241,
-      "section": "Closing",
-      "line": "Next: a managed database, a Cloud Run deployment, real weather data and authentication, without dropping the evidence trail."
-    }
-  ]
+  "$comment": "Spoken lines for the OpsMind demo, keyed by the caption title written into OpsMind_Demo_Draft_EN.srt. Timing comes from that SRT, so re-recording re-times the narration automatically. A caption with no entry here is read verbatim. `scripts/narrate-demo.mjs` synthesises this, fits each line into its window and muxes it into the video.",
+  "voice": "Microsoft Zira Desktop",
+  "lines": {
+    "OpsMind — AI operational intelligence": "OpsMind turns separated operations data into evidence a manager can check.",
+    "The numbers live in separate places": "Production, electricity, hours and weather sit in different sheets. A spike rarely explains itself, so nobody investigates it.",
+    "One period, three numbers": "Thirty labelled simulated days. Production stays flat while electricity rises; the app calculates the energy intensity, not the model.",
+    "The strongest candidate": "September seventeenth is thirty six percent above its trailing baseline: method baseline v1, a fifteen percent prototype threshold.",
+    "One pipeline, no black box": "Route handlers validate the request, the analysis engine computes the metrics, a context builder packages thirteen evidence items, Gemini answers as JSON, and the server validates it before storing.",
+    "Investigation queue": "Two candidate days, each with deviation, severity and estimated impact.",
+    "Run the investigation": "The button calls the backend. Metrics are computed first; only then is the model asked to explain them.",
+    "Evidence before explanation": "Actual and baseline intensity, the comparison window and the deviation are stored with the result.",
+    "E1–E13, the only context the model sees": "The model cannot run SQL or shell, and citations of evidence it never saw are discarded.",
+    "A transparent cost estimate": "Excess kilowatt hours times tariff. The formula and its assumptions are printed: a potential estimate, not a verified saving.",
+    "Live model — gemini-3.8-flash": "Gemini wrote this from the supplied evidence only. Its answer is validated server side before it is stored.",
+    "Simulated model — labelled as such": "With no API key the deterministic mock answers instead, and the interface says so. It is never presented as live AI.",
+    "Hypotheses, not conclusions": "Each possible factor lists the evidence that is still missing before it can be confirmed.",
+    "AI suggests, a person decides": "Recommended checks are human inspections. No autonomous equipment control is ever proposed.",
+    "The app shows its work": "Every claim cites evidence IDs, failures are stored as failures, and simulated data is labelled everywhere.",
+    "Record the human decision": "The operator adds the check they intend to run, then marks it completed.",
+    "Human sign-off, then verification": "Completing the action unlocks a before and after comparison.",
+    "Observed change, not causation": "It reports the observed change, and states that other factors are not controlled.",
+    "Every row carries its source": "Rows are labelled simulated. Days without enough baseline are reported as insufficient, never estimated.",
+    "Failure shown as failure": "The health endpoint reports database and model state. A failed call is stored as failed, with no invented answer.",
+    "A working, honest prototype": "Next: a Cloud Run deployment, real weather data, CSV import and authentication, without dropping the evidence trail."
+  }
 }

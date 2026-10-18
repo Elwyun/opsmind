@@ -2,8 +2,8 @@
 
 | | |
 | --- | --- |
-| File | `OpsMind_Demo_Narrated_EN.mp4` (narrated cut) · `OpsMind_Demo_Draft_EN.mp4` (silent cut) |
-| Duration | **2:39** (submission limit: under 3:00) |
+| File | `OpsMind_Demo_Narrated_EN.mp4` (narrated cut) · `OpsMind_Demo_Draft_EN.mp4` (silent cut, same take) |
+| Duration | **3:27** (the submission form asks for 3–4 minutes) |
 | Format | H.264 MP4, 1600×900, 30 fps, AAC audio (narrated cut) |
 | Captions | Burned in (lower third) + `OpsMind_Demo_Draft_EN.srt` |
 | Scripts | `VOICEOVER_EN.md` + `voiceover-en.json` (timed narration) · `OpsMind_Demo_Draft_EN.captions.md` (caption table) |
@@ -48,7 +48,7 @@ DEMO_URL=https://YOUR-SERVICE.run.app npm run demo:record
 
 The script resets the demo data, drives the journey in Chromium, adds the pointer
 and captions, converts WebM → MP4 with ffmpeg, and refuses to finish if the take is
-longer than 179 seconds. Set `OPSMIND_DEMO_CAPTIONS=off` to record a clean plate for
+longer than 239 seconds. Set `OPSMIND_DEMO_CAPTIONS=off` to record a clean plate for
 a voice-over; the SRT/caption table is written either way.
 
 ## Final video checklist

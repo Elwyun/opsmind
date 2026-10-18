@@ -6,7 +6,8 @@ Deadline prototype submission: **18 October 2026, 23:59** (evaluation 19 Oct –
 Required by the official FAQ:
 
 1. Working prototype **deployed** on Cloud Run / GCP / Firebase
-2. Video demo **under 3 minutes**
+2. Video demo — the FAQ says “three minutes”; the submission form asks for **3–4 minutes**, so the
+   recorded cut is **3:27** and satisfies the form
 3. **Public GitHub repository**
 4. Deck explaining the solution
 
@@ -25,16 +26,16 @@ Innovation & Creativity **25%** · User Experience & Solution Design **10%**.
 - [ ] Deployed URL smoke-tested: Overview loads, badge `SIMULATED DATA` visible, Investigate works
 - [x] `GEMINI_API_KEY` set locally: live **Gemini 3.8 Flash** (verified with `generateContent`);
       Cloud Run secret still pending. The mock remains the labelled fallback.
-- [x] Demo recorded (< 3 min) + narrated cut: `submission/video/OpsMind_Demo_Narrated_EN.mp4` (2:39,
-      captions burned in, synthetic voice fitted to the caption windows)
+- [x] Demo recorded + narrated: `submission/video/OpsMind_Demo_Narrated_EN.mp4` (3:27, captions burned
+      in, synthetic voice fitted to the caption windows)
 - [ ] Final video against the deployed URL (address bar visible), uploaded (YouTube/Drive unlisted)
 - [x] Deck finalised and exported to PDF: `submission/OpsMind_AI_Deck_EN.pdf` and
       `submission/OpsMind_AI_Deck_ID.pdf`
 - [ ] Team formation finalised in the Hack2skill dashboard
 
 Completed locally on 18 Oct 2026: deck + screenshots + PDF, `/api/health`, rate limits for
-investigations and demo reset, optional `DEMO_RESET_TOKEN`, live Gemini 3.8 Flash, a 2:39 demo
-draft (screen-only, captions), and form-ready copy in [`submission/SUBMISSION_TEXT.md`](./submission/SUBMISSION_TEXT.md).
+investigations and demo reset, optional `DEMO_RESET_TOKEN`, live Gemini 3.8 Flash, a 3:27 narrated demo,
+and form-ready copy in [`submission/SUBMISSION_TEXT.md`](./submission/SUBMISSION_TEXT.md).
 Still missing: the Cloud Run deployment, the final voice-over video and the Hack2skill form.
 
 ## 1c. Infrastructure status (18 Oct 2026)
@@ -75,7 +76,7 @@ gcloud run deploy opsmind --source . --region asia-southeast1 --allow-unauthenti
 
 ## 1b. Demo video draft
 
-`submission/video/` contains the narrated cut `OpsMind_Demo_Narrated_EN.mp4` (2:39, 1600×900,
+`submission/video/` contains the narrated cut `OpsMind_Demo_Narrated_EN.mp4` (3:27, 1600×900,
 H.264 + AAC) and the silent take `OpsMind_Demo_Draft_EN.mp4`, plus the SRT, the caption table
 (`OpsMind_Demo_Draft_EN.captions.md`), the timed voice-over (`VOICEOVER_EN.md` + `voiceover-en.json`)
 and a README with re-record instructions:
