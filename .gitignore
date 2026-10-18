@@ -36,9 +36,17 @@ blob-report/
 .demo-recording/
 submission/video/*.mp4
 submission/video/*.webm
+
+# Neon project link (org/project/branch ids) and local tooling downloads
+.neon
+.tools/
+
+# Absolute-path skill symlinks written by the skills installer
+.claude/
 submission-assets/deck-preview/
 
 # Local deck-build tooling (python-pptx, PyMuPDF)
 .deck-tools/
 __pycache__/
 *.pyc
+.neon

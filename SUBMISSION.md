@@ -17,11 +17,12 @@ Innovation & Creativity **25%** · User Experience & Solution Design **10%**.
 
 ## 1. Checklist
 
-- [ ] GitHub repo public, description + topics (`nextjs`, `prisma`, `gemini`, `google-cloud`,
-      `energy-efficiency`), no secrets in history (`git log -p | grep -i "AIza"` must be empty)
-- [ ] Neon (or Cloud SQL) database created; schema pushed + seeded:
-      `DATABASE_URL="postgres://..." npm run db:setup`
-- [ ] Deployed: `gcloud run deploy opsmind --source .` (see README → Deployment)
+- [x] GitHub repo public: https://github.com/Elwyun/opsmind (`main`), no secrets in history
+- [ ] Repo description + topics (`nextjs`, `prisma`, `gemini`, `google-cloud`, `energy-efficiency`)
+- [x] Neon database created and seeded: project `morning-lake-93206231` (opsmind, `aws-ap-southeast-1`),
+      30 simulated days, `.env` uses the pooled URL (see §1c)
+- [ ] Deployed on Cloud Run — **blocked: the GCP project has no billing account** (see §1c)
+- [ ] Deployed URL smoke-tested: Overview loads, badge `SIMULATED DATA` visible, Investigate works
 - [ ] Deployed URL smoke-tested: Overview loads, badge `SIMULATED DATA` visible, Investigate works
 - [x] `GEMINI_API_KEY` set locally: live **Gemini 3.8 Flash** (verified with `generateContent`);
       Cloud Run secret still pending. The mock remains the labelled fallback.
@@ -34,8 +35,43 @@ Innovation & Creativity **25%** · User Experience & Solution Design **10%**.
 Completed locally on 18 Oct 2026: deck + screenshots + PDF, `/api/health`, rate limits for
 investigations and demo reset, optional `DEMO_RESET_TOKEN`, live Gemini 3.8 Flash, a 2:39 demo
 draft (screen-only, captions), and form-ready copy in [`submission/SUBMISSION_TEXT.md`](./submission/SUBMISSION_TEXT.md).
-Still missing: the public repo push, a Neon/Cloud SQL `DATABASE_URL`, the Cloud Run deployment,
-and the final voice-over video.
+Still missing: the Cloud Run deployment, the final voice-over video and the Hack2skill form.
+
+## 1c. Infrastructure status (18 Oct 2026)
+
+**Neon — done.** Project `morning-lake-93206231` (`opsmind`) in `aws-ap-southeast-1`, branch
+`main`, linked via `.neon` (git-ignored). The schema was pushed and the 30-day demo seeded over
+the direct connection; `.env` holds the **pooled** URL for application traffic. Verified
+end-to-end against Neon: `GET /api/health` → `database: ok`, and
+`POST /api/investigations` for 2026-09-17 → `COMPLETED`, deviation 36%, live Gemini
+(`gemini-3.8-flash`), 13 evidence items, 3 hypotheses.
+
+To re-seed or re-link:
+
+```bash
+npx neonctl link --project-id morning-lake-93206231 --org-id org-round-frost-91581060 --no-env-pull -y
+DATABASE_URL="$DIRECT_NEON_URL" npm run db:setup
+```
+
+**Cloud Run — blocked.** `gcloud` 589.0.0 is installed locally and authenticated as
+`alwihamzah@gmail.com`, but `gcloud billing projects describe` reports
+`billingEnabled: False` for every project on the account and there is no billing account.
+Cloud Run, Cloud Build and Artifact Registry cannot be used until billing is enabled.
+
+To unblock (needs your payment method):
+
+1. Open https://console.cloud.google.com/billing/create and add a billing account
+   (new accounts get free trial credits).
+2. Link it to a project — `gen-lang-client-0869954467` is already named `opsmind`:
+   https://console.cloud.google.com/billing/link?project=gen-lang-client-0869954467
+3. Tell me when it is linked; I then run:
+
+```bash
+gcloud config set project gen-lang-client-0869954467
+gcloud services enable run.googleapis.com cloudbuild.googleapis.com \
+  artifactregistry.googleapis.com secretmanager.googleapis.com
+gcloud run deploy opsmind --source . --region asia-southeast1 --allow-unauthenticated
+```
 
 ## 1b. Demo video draft
 
