@@ -4,7 +4,7 @@
 # are baked into the image. At runtime the service needs:
 #   DATABASE_URL    - managed PostgreSQL (e.g. Neon / Cloud SQL), server-side
 #   GEMINI_API_KEY  - optional; empty => the labelled mock investigator
-#   GEMINI_MODEL    - optional, defaults to gemini-2.5-flash
+#   GEMINI_MODEL    - optional, defaults to gemini-3.8-flash
 
 FROM node:22-slim AS builder
 WORKDIR /app
