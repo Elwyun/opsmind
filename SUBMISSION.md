@@ -7,7 +7,7 @@ Required by the official FAQ:
 
 1. Working prototype **deployed** on Cloud Run / GCP / Firebase
 2. Video demo — the FAQ says “three minutes”; the submission form asks for **3–4 minutes**, so the
-   recorded cut is **3:27** and satisfies the form
+   recorded cut is **3:40** and satisfies the form
 3. **Public GitHub repository**
 4. Deck explaining the solution
 
@@ -28,7 +28,7 @@ Innovation & Creativity **25%** · User Experience & Solution Design **10%**.
       (`COMPLETED`, 13 evidence, 3 hypotheses, `Live model`)
 - [x] `GEMINI_API_KEY` set locally: live **Gemini 3.8 Flash** (verified with `generateContent`);
       Cloud Run secret still pending. The mock remains the labelled fallback.
-- [x] Demo recorded + narrated: `submission/video/OpsMind_Demo_Narrated_EN.mp4` (3:27, captions burned
+- [x] Demo recorded + narrated: `submission/video/OpsMind_Demo_Narrated_EN.mp4` (3:40, captions burned
       in, synthetic voice fitted to the caption windows)
 - [ ] Final video against the deployed URL (address bar visible), uploaded (YouTube/Drive unlisted)
 - [x] Deck finalised and exported to PDF: `submission/OpsMind_AI_Deck_EN.pdf` and
@@ -36,7 +36,7 @@ Innovation & Creativity **25%** · User Experience & Solution Design **10%**.
 - [ ] Team formation finalised in the Hack2skill dashboard
 
 Completed locally on 18 Oct 2026: deck + screenshots + PDF, `/api/health`, rate limits for
-investigations and demo reset, optional `DEMO_RESET_TOKEN`, live Gemini 3.8 Flash, a 3:27 narrated demo,
+investigations and demo reset, optional `DEMO_RESET_TOKEN`, live Gemini 3.8 Flash, a 3:40 narrated demo,
 and form-ready copy in [`submission/SUBMISSION_TEXT.md`](./submission/SUBMISSION_TEXT.md).
 Still missing: the Cloud Run deployment, the final voice-over video and the Hack2skill form.
 
@@ -92,9 +92,9 @@ gcloud services enable run.googleapis.com cloudbuild.googleapis.com \
 gcloud run deploy opsmind --source . --region asia-southeast1 --allow-unauthenticated
 ```
 
-## 1b. Demo video draft
+## 1b. Demo video
 
-`submission/video/` contains the narrated cut `OpsMind_Demo_Narrated_EN.mp4` (3:27, 1600×900,
+`submission/video/` contains the narrated cut `OpsMind_Demo_Narrated_EN.mp4` (3:40, 1600×900,
 H.264 + AAC) and the silent take `OpsMind_Demo_Draft_EN.mp4`, plus the SRT, the caption table
 (`OpsMind_Demo_Draft_EN.captions.md`), the timed voice-over (`VOICEOVER_EN.md` + `voiceover-en.json`)
 and a README with re-record instructions:
@@ -103,9 +103,9 @@ and a README with re-record instructions:
 DEMO_URL=https://YOUR-SERVICE.run.app npm run demo:record
 ```
 
-The draft was recorded against a local production build with live Gemini (`Live model` in the
-UI). The final take must show the deployed URL and include the voice-over; no claim in the
-video depends on the local URL.
+The take was recorded against the deployed Vercel URL with live Gemini (`Live model` in the UI),
+and the deployed URL is printed on the title and closing cards. There is still no browser chrome
+in the frame (Playwright captures the viewport only) and the voice is synthetic.
 
 ## 2. Video shot list (3 minutes, single screen recording, voice-over optional)
 

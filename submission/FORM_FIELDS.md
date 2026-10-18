@@ -26,7 +26,7 @@ https://github.com/Elwyun/opsmind
 
 `[PENDING — upload OpsMind_Demo_Narrated_EN.mp4 as unlisted YouTube/Drive]`
 
-Upload **`submission/video/OpsMind_Demo_Narrated_EN.mp4`** — **3:27**, 1600×900, captions burned in,
+Upload **`submission/video/OpsMind_Demo_Narrated_EN.mp4`** — **3:40**, 1600×900, captions burned in,
 with narration. It is inside the 3–4 minute range this field asks for.
 
 ## Brief Description of Your Solution
@@ -36,7 +36,7 @@ Character count is printed by the block below (limit 1,024):
 <!-- description-start -->
 OpsMind is an AI operational intelligence prototype for SME manufacturers. It finds energy waste that production data alone cannot explain: code calculates energy intensity (kWh per unit), a seven-day trailing baseline, the deviation and a cost estimate; Gemini then explains only that evidence.
 
-Google services: Gemini 3.8 Flash via the Gemini API, called server-side with the key in the x-goog-api-key header, never in the browser. Context is minimal: 13 evidence items, units, method version, limitations. Output is JSON, validated server-side with Zod; citations of unsupplied evidence are discarded. Timeouts, quota and schema errors are stored as FAILED with an error code, never replaced by an invented answer. A Dockerfile targets Cloud Run; configuration comes from environment variables or Secret Manager, so no secret is baked into the image. Data is a deterministic simulated dataset, labelled everywhere; the AI suggests checks, a person decides.
+Google services: Gemini 3.8 Flash via the Gemini API, called server-side with the key in the x-goog-api-key header, never in the browser. Context is minimal: 13 evidence items, units, method version, limitations. Output is JSON, validated server-side with Zod; citations of unsupplied evidence are discarded. Timeouts, quota and schema errors are stored as FAILED with an error code, never replaced by an invented answer. A Dockerfile targets Cloud Run; configuration comes from environment variables or Secret Manager, so no secret is baked into the image. Data is a deterministic simulated dataset, labelled everywhere; the AI suggests checks, a person decides. Live: https://opsmind-one.vercel.app
 <!-- description-end -->
 
 ## Challenges (dropdown)

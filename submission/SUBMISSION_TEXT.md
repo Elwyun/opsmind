@@ -208,7 +208,7 @@ savings require controlled studies on real metered data.
 | --- | --- |
 | Public GitHub repository | https://github.com/Elwyun/opsmind |
 | Deployed prototype | https://opsmind-one.vercel.app |
-| Video demo (3–4 min) | `[PENDING]` — file ready: `submission/video/OpsMind_Demo_Narrated_EN.mp4` (3:27) |
+| Video demo (3–4 min) | `[PENDING]` — file ready: `submission/video/OpsMind_Demo_Narrated_EN.mp4` (3:40) |
 | Deck (PDF) | `submission/OpsMind_AI_Deck_EN.pdf`, `submission/OpsMind_AI_Deck_ID.pdf` |
 
 ---

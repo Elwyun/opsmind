@@ -23,6 +23,7 @@ import { chromium } from "playwright";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const baseUrl = (process.env.DEMO_URL ?? "http://localhost:3000").replace(/\/$/, "");
+const displayUrl = baseUrl.replace(/^https?:\/\//, "");
 const showCaptions = (process.env.OPSMIND_DEMO_CAPTIONS ?? "on").toLowerCase() !== "off";
 const outDir = path.resolve(root, process.env.OPSMIND_DEMO_OUT ?? "submission/video");
 const mp4Path = path.join(outDir, "OpsMind_Demo_Draft_EN.mp4");
@@ -349,11 +350,10 @@ async function main() {
       title: "OpsMind",
       lead:
         "AI operational intelligence for small manufacturers: find energy waste that production data alone does not explain.",
-      foot:
-        "Draft screen recording · every figure comes from a deterministic simulated dataset · no saving has been verified.",
+      foot: `Live at ${displayUrl} · every figure is from a deterministic simulated dataset · no saving has been verified.`,
     }),
   );
-  await sleep(9000);
+  await sleep(8000);
 
   // 2. Problem ---------------------------------------------------------------
   step("problem card");
@@ -377,7 +377,7 @@ async function main() {
       foot: "OpsMind: the app calculates the metrics, then the model explains only that evidence.",
     }),
   );
-  await sleep(10000);
+  await sleep(9000);
 
   // 3. Overview --------------------------------------------------------------
   step("overview");
@@ -427,7 +427,7 @@ async function main() {
       foot: "The model has no SQL or shell access, and the API key never reaches the browser.",
     }),
   );
-  await sleep(21000);
+  await sleep(17000);
 
   // 4. Queue + investigate ---------------------------------------------------
   step("investigation queue");
@@ -537,7 +537,7 @@ async function main() {
       foot: "The AI suggests checks; a person decides what to do and records what was done.",
     }),
   );
-  await sleep(17000);
+  await sleep(14000);
 
   // 7. Action + verification -------------------------------------------------
   step("action flow");
@@ -595,7 +595,7 @@ async function main() {
   await scrollTo(page, page.getByRole("heading", { name: "Daily operational data" }), "start");
   await moveTo(page, page.locator("tbody tr").filter({ hasText: "2026-09-17" }).first());
   await smoothScroll(page, 220);
-  await sleep(5200);
+  await sleep(4500);
 
   // 9. Health / failure state ------------------------------------------------
   step("health");
@@ -606,7 +606,7 @@ async function main() {
     "Failure shown as failure",
     "The health endpoint reports database and model state. A failed model call is stored as FAILED with an error code — no substitute answer is invented.",
   );
-  await sleep(7500);
+  await sleep(6500);
 
   // 10. Closing --------------------------------------------------------------
   step("closing card");
@@ -614,7 +614,7 @@ async function main() {
     page,
     "09 · CLOSING",
     "A working, honest prototype",
-    "Next: a Cloud Run deployment, real weather data, CSV import and authentication — without dropping the evidence trail.",
+    `Live at ${displayUrl} today; real weather data, CSV import and authentication are next, and the evidence trail stays.`,
   );
   await hideCaption(page);
   await page.setContent(
@@ -626,13 +626,12 @@ async function main() {
         aiLive
           ? `Live Gemini (${aiModel}) writes the explanation; its output is validated server-side and failures are stored as FAILED.`
           : "Mock investigator clearly labelled <em>Simulated model</em>; live Gemini is one environment variable away.",
-        "Next: managed PostgreSQL, Cloud Run deployment, live Gemini key, real weather provider, authentication.",
+        "Live today on Vercel with Neon PostgreSQL and Gemini 3.8 Flash; the Cloud Run image is ready for when GCP billing is enabled.",
       ],
-      foot:
-        "Repository, deployed URL and final voice-over are added before submission · ABB Catalyst · OpsMind",
+      foot: `https://${displayUrl} · ABB Catalyst · OpsMind`,
     }),
   );
-  await sleep(15000);
+  await sleep(11000);
 
   // Finalise ----------------------------------------------------------------
   const video = page.video();

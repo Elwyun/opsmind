@@ -1,13 +1,13 @@
-# OpsMind demo video — draft
+# OpsMind demo video
 
 | | |
 | --- | --- |
 | File | `OpsMind_Demo_Narrated_EN.mp4` (narrated cut) · `OpsMind_Demo_Draft_EN.mp4` (silent cut, same take) |
-| Duration | **3:27** (the submission form asks for 3–4 minutes) |
+| Duration | **3:40** (the submission form asks for 3–4 minutes) |
 | Format | H.264 MP4, 1600×900, 30 fps, AAC audio (narrated cut) |
 | Captions | Burned in (lower third) + `OpsMind_Demo_Draft_EN.srt` |
 | Scripts | `VOICEOVER_EN.md` + `voiceover-en.json` (timed narration) · `OpsMind_Demo_Draft_EN.captions.md` (caption table) |
-| Recorded | 18 Oct 2026 against a local production build (`next start`) |
+| Recorded | 19 Oct 2026 against the **deployed** URL, https://opsmind-one.vercel.app |
 | AI provider at record time | **Live Gemini** — `gemini-3.8-flash` (`GEMINI_API_KEY` set) |
 | Narration | Windows speech engine (`Microsoft Zira Desktop`), fitted to the caption windows |
 
@@ -24,11 +24,11 @@ The take walks through the real UI: Overview → investigation queue → investi
 evidence E1–E13 → cost formula → live Gemini output → human action → before/after
 comparison → data labels → `/api/health`.
 
-It is a **draft**, not the final submission video:
+It is a screen-only cut with a synthetic voice:
 
 - The narration is a synthetic voice, not a human recording — replace it if the team prefers.
-- It records `localhost`, not the deployed Cloud Run URL, and there is no browser
-  chrome/address bar in the frame (Playwright captures the viewport only).
+- It records the deployed Vercel app, but there is no browser chrome/address bar in the frame
+  (Playwright captures the viewport only); the URL is printed on the title and closing cards.
 - The numbers come from the deterministic **simulated** dataset; the video says so
   on screen and in the captions. No saving is claimed.
 
