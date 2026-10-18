@@ -26,8 +26,14 @@ Innovation & Creativity **25%** · User Experience & Solution Design **10%**.
 - [ ] `GEMINI_API_KEY` decision: live Gemini (preferred for the 40% Gen AI criterion) or the
       labelled mock fallback — must never be presented as live AI when mocked
 - [ ] Video recorded (< 3 min), uploaded (YouTube/Drive unlisted), screenshot attached
-- [ ] Deck exported to PDF
+- [x] Deck finalised and exported to PDF: `submission/OpsMind_AI_Deck_EN.pdf` and
+      `submission/OpsMind_AI_Deck_ID.pdf`
 - [ ] Team formation finalised in the Hack2skill dashboard
+
+Completed locally on 18 Oct 2026: deck + screenshots + PDF, `/api/health`, rate limits for
+investigations and demo reset, optional `DEMO_RESET_TOKEN`, and a clean local commit. Still missing:
+public GitHub remote, deployed URL, video, and a live Gemini key (the app currently uses the
+labelled mock).
 
 ## 2. Video shot list (3 minutes, single screen recording, voice-over optional)
 
