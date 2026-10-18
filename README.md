@@ -156,12 +156,24 @@ PostgreSQL) and optionally `GEMINI_API_KEY`.
 # 1. One-time: create a serverless PostgreSQL (e.g. Neon free tier) and copy its URL.
 # 2. Push the schema + seed the demo data onto it:
 DATABASE_URL="postgres://..." npm run db:setup
-# 3. Build and deploy (uses the Dockerfile in this repo):
+# 3. Deploy: enables APIs, stores DATABASE_URL/GEMINI_API_KEY as secrets and smoke-tests.
+DRY_RUN=true bash scripts/deploy-cloud-run.sh   # optional preview
+bash scripts/deploy-cloud-run.sh                # uses the Dockerfile in this repo
+```
+
+Full manual equivalent (secrets first), if you prefer running `gcloud` yourself:
+
+```bash
+printf '%s' "postgres://..." | gcloud secrets create database-url --data-file=-
+printf '%s' "$GEMINI_API_KEY" | gcloud secrets create gemini-api-key --data-file=-
 gcloud run deploy opsmind --source . \
   --region asia-southeast1 \
-  --set-env-vars DATABASE_URL="postgres://..." \
-  --set-secrets GEMINI_API_KEY=gemini-api-key:latest
+  --set-env-vars GEMINI_MODEL=gemini-3.8-flash \
+  --set-secrets "DATABASE_URL=database-url:latest,GEMINI_API_KEY=gemini-api-key:latest"
 ```
+
+Cloud Run requires billing to be enabled on the project; the script detects that and prints the
+link instead of failing mid-deploy.
 
 Leave `GEMINI_API_KEY` unset to run the deployed demo with the deterministic mock investigator —
 it is labelled "Simulated model" in the UI and never presented as live AI.

@@ -16,8 +16,9 @@ this file should be presented as deployed until those two exist.
 | Team | **ABB Catalyst** (lead: Alwi Hamzah), JAPAC — Indonesia |
 | Track fit | Google Cloud AI Builder Cup 2026 — Gen AI application |
 | Public repository | https://github.com/Elwyun/opsmind |
-| Deployed demo | https://opsmind-one.vercel.app (Next.js on Vercel + Neon + live Gemini; Cloud Run pending billing) |
-| Demo video | `[PENDING — unlisted YouTube/Drive link]` |
+| Deployed demo | https://opsmind-483387477810.asia-southeast1.run.app (Next.js on **Google Cloud Run**, project `automationtele`, region `asia-southeast1`, Neon PostgreSQL, live Gemini 3.8 Flash) |
+| Mirror | https://opsmind-one.vercel.app (same build on Vercel) |
+| Demo video | https://drive.google.com/file/d/1MbWaVnI91_w6GK38qvh7ldsoKX-j5wls/view (Google Drive, anyone with the link) |
 | Deck | `submission/OpsMind_AI_Deck_EN.pdf` (ID version alongside) |
 | AI model | Gemini `gemini-3.8-flash` (live in local prototype; deployment pending) |
 
@@ -207,8 +208,9 @@ savings require controlled studies on real metered data.
 | Requirement | Value |
 | --- | --- |
 | Public GitHub repository | https://github.com/Elwyun/opsmind |
-| Deployed prototype | https://opsmind-one.vercel.app |
-| Video demo (3–4 min) | `[PENDING]` — file ready: `submission/video/OpsMind_Demo_Narrated_EN.mp4` (3:40) |
+| Deployed prototype (Google Cloud Run) | https://opsmind-483387477810.asia-southeast1.run.app |
+| Mirror (Vercel) | https://opsmind-one.vercel.app |
+| Video demo (3–4 min) | https://drive.google.com/file/d/1MbWaVnI91_w6GK38qvh7ldsoKX-j5wls/view (3:13, anyone with the link) |
 | Deck (PDF) | `submission/OpsMind_AI_Deck_EN.pdf`, `submission/OpsMind_AI_Deck_ID.pdf` |
 
 ---

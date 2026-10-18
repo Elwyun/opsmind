@@ -11,8 +11,8 @@
 | `../submission-assets/screenshots/` | Real screenshots used in the deck |
 | `../submission-assets/diagrams/` | Process and architecture diagrams used in the deck |
 | `SUBMISSION_TEXT.md` | Form-ready copy (English) + Indonesian summary |
-| `video/OpsMind_Demo_Narrated_EN.mp4` | 3:40 narrated demo (upload this one) |
-| `video/OpsMind_Demo_Draft_EN.mp4` | 3:40 silent take, captions burned in |
+| `video/OpsMind_Demo_Narrated_EN.mp4` | 3:13 narrated demo (upload this one) |
+| `video/OpsMind_Demo_Draft_EN.mp4` | 3:13 silent take, captions burned in |
 | `video/OpsMind_Demo_Draft_EN.srt` | Captions as a subtitle file |
 | `video/VOICEOVER_EN.md` + `video/voiceover-en.json` | Timed voice-over script and lines |
 | `video/README.md` | Video metadata, re-record command, final checklist |

@@ -3,13 +3,14 @@
 | | |
 | --- | --- |
 | File | `OpsMind_Demo_Narrated_EN.mp4` (narrated cut) · `OpsMind_Demo_Draft_EN.mp4` (silent cut, same take) |
-| Duration | **3:40** (the submission form asks for 3–4 minutes) |
+| Duration | **3:13** (the submission form asks for 3–4 minutes) |
 | Format | H.264 MP4, 1600×900, 30 fps, AAC audio (narrated cut) |
 | Captions | Burned in (lower third) + `OpsMind_Demo_Draft_EN.srt` |
 | Scripts | `VOICEOVER_EN.md` + `voiceover-en.json` (timed narration) · `OpsMind_Demo_Draft_EN.captions.md` (caption table) |
-| Recorded | 19 Oct 2026 against the **deployed** URL, https://opsmind-one.vercel.app |
+| Recorded | 19 Oct 2026 against the **Cloud Run** URL, https://opsmind-483387477810.asia-southeast1.run.app |
 | AI provider at record time | **Live Gemini** — `gemini-3.8-flash` (`GEMINI_API_KEY` set) |
 | Narration | Windows speech engine (`Microsoft Zira Desktop`), fitted to the caption windows |
+| Hosted copy | Google Drive, `alwihamzah@gmail.com`, anyone with the link → reader: https://drive.google.com/file/d/1MbWaVnI91_w6GK38qvh7ldsoKX-j5wls/view |
 
 ## Narration
 

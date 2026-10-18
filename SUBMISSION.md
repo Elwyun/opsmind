@@ -7,7 +7,7 @@ Required by the official FAQ:
 
 1. Working prototype **deployed** on Cloud Run / GCP / Firebase
 2. Video demo — the FAQ says “three minutes”; the submission form asks for **3–4 minutes**, so the
-   recorded cut is **3:40** and satisfies the form
+   recorded cut is **3:13** and satisfies the form
 3. **Public GitHub repository**
 4. Deck explaining the solution
 
@@ -22,23 +22,30 @@ Innovation & Creativity **25%** · User Experience & Solution Design **10%**.
 - [ ] Repo description + topics (`nextjs`, `prisma`, `gemini`, `google-cloud`, `energy-efficiency`)
 - [x] Neon database created and seeded: project `morning-lake-93206231` (opsmind, `aws-ap-southeast-1`),
       30 simulated days, `.env` uses the pooled URL (see §1c)
-- [x] Deployed and smoke-tested on **Vercel**: https://opsmind-one.vercel.app (Cloud Run still blocked
-      on GCP billing — see §1c)
-- [x] Deployed URL smoke-tested: Overview `SIMULATED DATA`, `+36.0%` queue row, live investigation
-      (`COMPLETED`, 13 evidence, 3 hypotheses, `Live model`)
-- [x] `GEMINI_API_KEY` set locally: live **Gemini 3.8 Flash** (verified with `generateContent`);
-      Cloud Run secret still pending. The mock remains the labelled fallback.
-- [x] Demo recorded + narrated: `submission/video/OpsMind_Demo_Narrated_EN.mp4` (3:40, captions burned
-      in, synthetic voice fitted to the caption windows)
-- [ ] Final video against the deployed URL (address bar visible), uploaded (YouTube/Drive unlisted)
+- [x] Deployed and smoke-tested on **Cloud Run**: https://opsmind-483387477810.asia-southeast1.run.app
+      (Vercel mirror: https://opsmind-one.vercel.app — see §1c)
+- [x] Deployed URL smoke-tested on Cloud Run: Overview `SIMULATED DATA`, `17 Sep 2026` queue row,
+      live investigation (`COMPLETED`, deviation 36, severity MEDIUM, `Live model`, E13), no `FAILED`
+- [x] `GEMINI_API_KEY` set locally and as the Cloud Run secret `gemini-api-key`; live **Gemini 3.8
+      Flash** on both deployments. The mock remains the labelled fallback.
+- [x] Demo recorded + narrated **against the Cloud Run URL**:
+      `submission/video/OpsMind_Demo_Narrated_EN.mp4` (3:13, captions burned in, synthetic voice)
+- [x] Demo video uploaded to Google Drive (`alwihamzah@gmail.com`), shared anyone-with-the-link →
+      reader: https://drive.google.com/file/d/1MbWaVnI91_w6GK38qvh7ldsoKX-j5wls/view
+- [ ] Final video re-recorded against the Cloud Run URL (address bar visible) once billing is linked
 - [x] Deck finalised and exported to PDF: `submission/OpsMind_AI_Deck_EN.pdf` and
       `submission/OpsMind_AI_Deck_ID.pdf`
 - [ ] Team formation finalised in the Hack2skill dashboard
 
-Completed locally on 18 Oct 2026: deck + screenshots + PDF, `/api/health`, rate limits for
-investigations and demo reset, optional `DEMO_RESET_TOKEN`, live Gemini 3.8 Flash, a 3:40 narrated demo,
-and form-ready copy in [`submission/SUBMISSION_TEXT.md`](./submission/SUBMISSION_TEXT.md).
-Still missing: the Cloud Run deployment, the final voice-over video and the Hack2skill form.
+Completed on 18–19 Oct 2026: deck + screenshots + PDF, `/api/health`, rate limits for investigations
+and demo reset, optional `DEMO_RESET_TOKEN`, live Gemini 3.8 Flash, a 3:13 narrated demo, form-ready
+copy in [`submission/SUBMISSION_TEXT.md`](./submission/SUBMISSION_TEXT.md), and the **Cloud Run
+deployment** (see §1c).
+
+Still missing for the submit button: upload the deck PDF, paste the prototype/video links and the
+1,024-character description into the Hack2skill form, and finalise the team roster in the dashboard.
+Optional polish: re-record the demo so the on-screen URL matches the Cloud Run link, and add repo
+topics + description.
 
 ## 1c. Infrastructure status (18 Oct 2026)
 
@@ -72,29 +79,50 @@ GET  /investigations/<id> → Anomaly summary, Evidence, AI summary, Live model,
 
 Redeploy with `vercel --prod`, or connect Git with `vercel git connect` for auto-deploys.
 
-**Cloud Run — blocked.** `gcloud` 589.0.0 is installed locally and authenticated as
-`alwihamzah@gmail.com`, but `gcloud billing projects describe` reports
-`billingEnabled: False` for every project on the account and there is no billing account.
-Cloud Run, Cloud Build and Artifact Registry cannot be used until billing is enabled.
+**Cloud Run — live.** https://opsmind-483387477810.asia-southeast1.run.app
+Deployed 19 Oct 2026 from source with `PROJECT_ID=automationtele bash scripts/deploy-cloud-run.sh`,
+using the `sisawaktu11@gmail.com` account (the `alwihamzah` account has no billing account, which is
+what blocked this earlier). Project `automationtele`, region `asia-southeast1`, revision
+`opsmind-00001-hxt`, service account `483387477810-compute@developer.gserviceaccount.com`.
+Secrets live in Secret Manager (`database-url`, `gemini-api-key`); the image is built by Cloud Build
+from the repo `Dockerfile`. Verified from the deployed URL:
 
-To unblock (needs your payment method):
+```
+GET  /api/health → {"status":"ok","database":"ok","ai":{"provider":"gemini","isLive":true,"modelName":"gemini-3.8-flash"}}
+GET  /           → 200, SIMULATED DATA, 17 Sep 2026
+POST /api/investigations {date: 2026-09-17} → 201 COMPLETED, deviation 36, severity MEDIUM
+GET  /investigations/cmve3kc9n001r08kt79rlbfft → 200, Live model, E13, Hypotheses, no FAILED
+```
 
-1. Open https://console.cloud.google.com/billing/create and add a billing account
-   (new accounts get free trial credits).
-2. Link it to a project — `gen-lang-client-0869954467` is already named `opsmind`:
-   https://console.cloud.google.com/billing/link?project=gen-lang-client-0869954467
-3. Tell me when it is linked; I then run:
+The first attempt failed with `PERMISSION_DENIED: ... default service account is missing required
+IAM permissions`; granting `roles/cloudbuild.builds.builder`, `roles/storage.objectViewer`,
+`roles/artifactregistry.writer` and `roles/logging.logWriter` to that service account fixed it.
+
+**Cloud Run — previously blocked (context).** `gcloud` is authenticated as `alwihamzah@gmail.com`,
+but `gcloud billing projects describe` reports `billingEnabled: False` for every project on the
+account and there is no billing account there. The `sisawaktu11@gmail.com` account does have one
+(`01AD94-98B6CE-A6E98D`, IDR), with `automationtele` and `gen-lang-client-0307206048` linked.
+
+Redeploying is one command (already proven end-to-end):
 
 ```bash
-gcloud config set project gen-lang-client-0869954467
-gcloud services enable run.googleapis.com cloudbuild.googleapis.com \
-  artifactregistry.googleapis.com secretmanager.googleapis.com
-gcloud run deploy opsmind --source . --region asia-southeast1 --allow-unauthenticated
+PROJECT_ID=automationtele bash scripts/deploy-cloud-run.sh
 ```
+
+Use it after any code change, and use `DRY_RUN=true` to preview without changing anything.
+If it ever fails again with `default service account is missing required IAM permissions`, re-apply
+the four role bindings listed above. The `gen-lang-client-0869954467` project (the `alwihamzah`
+account) is *not* used for this submission because that account has no billing account.
+
+It enables the four APIs, writes `database-url` / `gemini-api-key` (and `demo-reset-token` when
+`DEMO_RESET_TOKEN` is set) to Secret Manager, grants the runtime account access, deploys `opsmind`
+to `asia-southeast1` from source, then polls `/api/health` until `database: ok` and reports whether
+the model is live. Without billing it stops at preflight with the link above and exit code 2.
+The manual `gcloud` equivalent is in [`docs/DEPLOY_AND_DEMO.md`](./docs/DEPLOY_AND_DEMO.md) §3–§5.
 
 ## 1b. Demo video
 
-`submission/video/` contains the narrated cut `OpsMind_Demo_Narrated_EN.mp4` (3:40, 1600×900,
+`submission/video/` contains the narrated cut `OpsMind_Demo_Narrated_EN.mp4` (3:13, 1600×900,
 H.264 + AAC) and the silent take `OpsMind_Demo_Draft_EN.mp4`, plus the SRT, the caption table
 (`OpsMind_Demo_Draft_EN.captions.md`), the timed voice-over (`VOICEOVER_EN.md` + `voiceover-en.json`)
 and a README with re-record instructions:
@@ -103,9 +131,20 @@ and a README with re-record instructions:
 DEMO_URL=https://YOUR-SERVICE.run.app npm run demo:record
 ```
 
-The take was recorded against the deployed Vercel URL with live Gemini (`Live model` in the UI),
-and the deployed URL is printed on the title and closing cards. There is still no browser chrome
+The take was recorded against the deployed **Cloud Run** URL with live Gemini (`Live model` in the
+UI), and that URL is printed on the title and closing cards. There is still no browser chrome
 in the frame (Playwright captures the viewport only) and the voice is synthetic.
+
+Uploaded 19 Oct 2026 to Google Drive under `alwihamzah@gmail.com`, shared **anyone with the link →
+reader** (verified: unauthenticated download returns HTTP 200). The content was replaced in place
+with the Cloud Run re-record, so the link below is unchanged; stored md5
+`f54e5a30cedb8d345d215abbdb45ca10` matches the local file byte-for-byte:
+
+```
+https://drive.google.com/file/d/1MbWaVnI91_w6GK38qvh7ldsoKX-j5wls/view
+```
+
+This is the link to paste into the form field *Demo Video Link (3–4 minutes)*.
 
 ## 2. Video shot list (3 minutes, single screen recording, voice-over optional)
 

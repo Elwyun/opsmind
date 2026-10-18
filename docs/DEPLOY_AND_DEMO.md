@@ -28,14 +28,31 @@ DATABASE_URL="$DATABASE_URL" npm run db:setup
 
 Verify the seed did not fail before deploying. The demo rows must be labelled `SIMULATED`.
 
-## 3. Create secrets
+## 3. One command (recommended)
+
+`scripts/deploy-cloud-run.sh` performs steps 3–5: it checks billing, enables the APIs, writes
+`database-url`, `gemini-api-key` and (when set) `demo-reset-token` to Secret Manager, grants the
+runtime service account access, deploys from source, and polls `/api/health` until the database
+reports `ok`. Values come from the environment or `.env` and are never printed.
 
 ```bash
-printf '%s' "$GEMINI_API_KEY" | gcloud secrets create gemini-api-key --data-file=-
+DRY_RUN=true bash scripts/deploy-cloud-run.sh   # print every step, change nothing
+bash scripts/deploy-cloud-run.sh                # deploy
+```
+
+Overrides: `PROJECT_ID`, `REGION`, `SERVICE`, `SEED=true` (push the schema and reseed first).
+The script stops with the billing console link when billing is disabled; `SKIP_BILLING_CHECK=true`
+only makes sense together with `DRY_RUN=true`.
+
+## 3b. Manual path: secrets
+
+```bash
+printf '%s' "$DATABASE_URL"     | gcloud secrets create database-url     --data-file=-
+printf '%s' "$GEMINI_API_KEY"   | gcloud secrets create gemini-api-key   --data-file=-
 printf '%s' "$DEMO_RESET_TOKEN" | gcloud secrets create demo-reset-token --data-file=-
 
 PROJECT_NUMBER="$(gcloud projects describe "$PROJECT_ID" --format='value(projectNumber)')"
-for SECRET in gemini-api-key demo-reset-token; do
+for SECRET in database-url gemini-api-key demo-reset-token; do
   gcloud secrets add-iam-policy-binding "$SECRET" \
     --member="serviceAccount:${PROJECT_NUMBER}-compute@developer.gserviceaccount.com" \
     --role="roles/secretmanager.secretAccessor"
@@ -43,7 +60,8 @@ done
 ```
 
 Skip `gemini-api-key` only if you deliberately want the labelled mock investigator. The UI will
-show `Simulated model`; never present it as live AI.
+show `Simulated model`; never present it as live AI. The connection string goes to Secret Manager
+too, so the database password is not readable as a plain revision environment variable.
 
 ## 4. Deploy
 
@@ -52,8 +70,8 @@ gcloud run deploy "$SERVICE" \
   --source . \
   --region "$REGION" \
   --allow-unauthenticated \
-  --set-env-vars "DATABASE_URL=$DATABASE_URL,GEMINI_MODEL=gemini-3.8-flash" \
-  --set-secrets "GEMINI_API_KEY=gemini-api-key:latest,DEMO_RESET_TOKEN=demo-reset-token:latest"
+  --set-env-vars "GEMINI_MODEL=gemini-3.8-flash" \
+  --set-secrets "DATABASE_URL=database-url:latest,GEMINI_API_KEY=gemini-api-key:latest,DEMO_RESET_TOKEN=demo-reset-token:latest"
 ```
 
 The Docker image listens on `PORT=8080`; Cloud Run supplies that variable. Every route is dynamic,
@@ -83,6 +101,18 @@ Then open `$URL` and check:
 4. The panel says `Live model` (Gemini) or `Simulated model` (mock) — never “live” for the mock.
 5. Add an action, mark it completed, and record a before/after comparison; the caveat is visible.
 6. Reset works with the token; repeated resets return `429 RATE_LIMITED`.
+
+## 5b. If billing is not enabled
+
+Cloud Run and Cloud Build refuse to run until a billing account is linked, even inside the free
+tier. The script prints the exact links; for reference:
+
+1. Create a billing account: https://console.cloud.google.com/billing/create
+2. Link the project: https://console.cloud.google.com/billing/link?project=YOUR_PROJECT_ID
+3. Confirm: `gcloud billing projects describe YOUR_PROJECT_ID --format='value(billingEnabled)'`
+
+Without Cloud Run, the recorded demo can point at another host (see `SUBMISSION.md` §1c), but the
+submission form requires a GCP/Cloud Run link.
 
 ## 6. Logs and rollback
 

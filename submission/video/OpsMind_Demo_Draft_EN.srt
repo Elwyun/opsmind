@@ -1,99 +1,99 @@
 1
-00:00:00,096 --> 00:00:08,262
+00:00:00,073 --> 00:00:08,248
 OpsMind — AI operational intelligence
 A working prototype that turns separated operations data into evidence a manager can check.
 
 2
-00:00:08,262 --> 00:00:22,157
+00:00:08,248 --> 00:00:21,465
 The numbers live in separate places
 Production, electricity, hours and weather sit in different sheets. A spike rarely explains itself, so nobody investigates it.
 
 3
-00:00:22,157 --> 00:00:31,873
+00:00:21,465 --> 00:00:31,333
 One period, three numbers
 30 labelled simulated days. Production stays flat while electricity rises; energy intensity is calculated by the app, not by the model.
 
 4
-00:00:31,873 --> 00:00:39,129
+00:00:31,334 --> 00:00:38,650
 The strongest candidate
 17 Sep 2026 is +36.0% above its trailing baseline. Method baseline-v1, threshold 15% — a prototype heuristic, not an industry standard.
 
 5
-00:00:39,129 --> 00:01:00,764
+00:00:38,650 --> 00:00:56,792
 One pipeline, no black box
 Route handlers validate the request, the analysis engine computes the metrics, a context builder packages 13 evidence items, Gemini answers as JSON, and Zod validates it before it is stored.
 
 6
-00:01:00,764 --> 00:01:06,566
+00:00:56,792 --> 00:01:02,590
 Investigation queue
 Two candidate days, each with deviation, severity, estimated impact and a one-line evidence summary.
 
 7
-00:01:06,566 --> 00:01:25,932
+00:01:02,590 --> 00:01:16,741
 Run the investigation
 The button calls the backend. The metrics are computed first; only then is the model asked to explain them.
 
 8
-00:01:25,932 --> 00:01:35,798
+00:01:16,741 --> 00:01:26,706
 Evidence before explanation
 Actual and baseline intensity, the comparison window and the deviation are stored with the result, so any claim can be traced back.
 
 9
-00:01:35,798 --> 00:01:42,340
+00:01:26,706 --> 00:01:33,305
 E1–E13, the only context the model sees
 The model cannot run SQL or shell. Citations of evidence that was not supplied are discarded and counted.
 
 10
-00:01:42,340 --> 00:01:49,550
+00:01:33,305 --> 00:01:40,515
 A transparent cost estimate
 excess kWh × tariff. The formula and its assumptions are printed; this is a potential estimate, not a bill and not a verified saving.
 
 11
-00:01:49,550 --> 00:01:58,209
+00:01:40,515 --> 00:01:49,260
 Live model — gemini-3.8-flash
 Gemini wrote this answer from the supplied evidence only. Its output is validated server-side against a Zod schema before it is stored.
 
 12
-00:01:58,209 --> 00:02:04,755
+00:01:49,260 --> 00:01:55,804
 Hypotheses, not conclusions
 Observations cite evidence IDs. Each possible factor lists the evidence that is still missing before it can be confirmed.
 
 13
-00:02:04,755 --> 00:02:13,893
+00:01:55,804 --> 00:02:04,996
 AI suggests, a person decides
 Recommended checks are human inspections. No autonomous equipment control is ever proposed.
 
 14
-00:02:13,893 --> 00:02:33,096
+00:02:04,996 --> 00:02:20,177
 The app shows its work
 Every claim cites evidence IDs, failures are stored as failures, and simulated data is labelled everywhere — the mock is never presented as live AI.
 
 15
-00:02:33,096 --> 00:02:50,337
+00:02:20,177 --> 00:02:30,088
 Record the human decision
 The operator adds the check they intend to run, then marks it completed with a short note.
 
 16
-00:02:50,337 --> 00:02:58,128
+00:02:30,088 --> 00:02:35,073
 Human sign-off, then verification
 Marking the action completed unlocks a before/after comparison over two explicit date windows.
 
 17
-00:02:58,128 --> 00:03:04,786
+00:02:35,073 --> 00:02:40,864
 Observed change, not causation
 The comparison reports before and after intensity and states the caveat: other factors are not controlled, so this does not prove the action caused the change.
 
 18
-00:03:04,786 --> 00:03:14,980
+00:02:40,864 --> 00:02:49,247
 Every row carries its source
 Rows are labelled SIMULATED. Days without enough baseline are reported as insufficient, never estimated.
 
 19
-00:03:14,980 --> 00:03:21,500
+00:02:49,247 --> 00:02:55,764
 Failure shown as failure
 The health endpoint reports database and model state. A failed model call is stored as FAILED with an error code — no substitute answer is invented.
 
 20
-00:03:21,500 --> 00:03:39,840
+00:02:55,764 --> 00:03:12,755
 A working, honest prototype
-Live at opsmind-one.vercel.app today; real weather data, CSV import and authentication are next, and the evidence trail stays.
+Live at opsmind-483387477810.asia-southeast1.run.app today; real weather data, CSV import and authentication are next, and the evidence trail stays.
