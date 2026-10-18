@@ -23,7 +23,6 @@ Innovation & Creativity **25%** · User Experience & Solution Design **10%**.
       30 simulated days, `.env` uses the pooled URL (see §1c)
 - [ ] Deployed on Cloud Run — **blocked: the GCP project has no billing account** (see §1c)
 - [ ] Deployed URL smoke-tested: Overview loads, badge `SIMULATED DATA` visible, Investigate works
-- [ ] Deployed URL smoke-tested: Overview loads, badge `SIMULATED DATA` visible, Investigate works
 - [x] `GEMINI_API_KEY` set locally: live **Gemini 3.8 Flash** (verified with `generateContent`);
       Cloud Run secret still pending. The mock remains the labelled fallback.
 - [x] Demo recorded (< 3 min) + narrated cut: `submission/video/OpsMind_Demo_Narrated_EN.mp4` (2:39,
