@@ -28,7 +28,7 @@ comparison → data labels → `/api/health`.
 It is a screen-only cut with a synthetic voice:
 
 - The narration is a synthetic voice, not a human recording — replace it if the team prefers.
-- It records the deployed Vercel app, but there is no browser chrome/address bar in the frame
+- It records the deployed Cloud Run app, but there is no browser chrome/address bar in the frame
   (Playwright captures the viewport only); the URL is printed on the title and closing cards.
 - The numbers come from the deterministic **simulated** dataset; the video says so
   on screen and in the captions. No saving is claimed.
@@ -44,7 +44,7 @@ DEMO_URL=http://localhost:3100 npm run demo:record
 Against the deployed service:
 
 ```bash
-DEMO_URL=https://opsmind-one.vercel.app npm run demo:record
+DEMO_URL=https://opsmind-483387477810.asia-southeast1.run.app npm run demo:record
 npm run demo:voiceover
 ```
 

@@ -137,8 +137,8 @@ in the frame (Playwright captures the viewport only) and the voice is synthetic.
 
 Uploaded 19 Oct 2026 to Google Drive under `alwihamzah@gmail.com`, shared **anyone with the link →
 reader** (verified: unauthenticated download returns HTTP 200). The content was replaced in place
-with the Cloud Run re-record, so the link below is unchanged; stored md5
-`f54e5a30cedb8d345d215abbdb45ca10` matches the local file byte-for-byte:
+with the Cloud Run re-record (including a corrected closing narration line), so the link below is
+unchanged; stored md5 `8c851a198806d57c8d05df28793036ed` matches the local file byte-for-byte:
 
 ```
 https://drive.google.com/file/d/1MbWaVnI91_w6GK38qvh7ldsoKX-j5wls/view

@@ -47,7 +47,7 @@ https://drive.google.com/file/d/1MbWaVnI91_w6GK38qvh7ldsoKX-j5wls/view
 
 Uploaded 19 Oct 2026 to Google Drive (`alwihamzah@gmail.com`), shared as **anyone with the link →
 reader**. Verified: unauthenticated download returns HTTP 200, and the stored md5
-`f54e5a30cedb8d345d215abbdb45ca10` matches the local copy.
+`8c851a198806d57c8d05df28793036ed` matches the local copy (same Drive link as before).
 
 The file is **`submission/video/OpsMind_Demo_Narrated_EN.mp4`** — **3:13**, 1600×900, captions burned
 in, with narration, recorded against the Cloud Run URL. It is inside the 3–4 minute range this field

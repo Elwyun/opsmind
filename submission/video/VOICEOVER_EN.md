@@ -27,4 +27,4 @@ the recording's SRT; lines come from `voiceover-en.json`, keyed by the caption t
 | 2:35–2:41 | Observed change, not causation | It reports the observed change, and states that other factors are not controlled. |
 | 2:41–2:49 | Every row carries its source | Rows are labelled simulated. Days without enough baseline are reported as insufficient, never estimated. |
 | 2:49–2:56 | Failure shown as failure | The health endpoint reports database and model state. A failed call is stored as failed, with no invented answer. |
-| 2:56–3:13 | A working, honest prototype | Live today on Vercel with Neon PostgreSQL and Gemini, and ready for Cloud Run. Next: real weather data, CSV import and authentication, without dropping the evidence trail. |
+| 2:56–3:13 | A working, honest prototype | Live today on Google Cloud Run with Neon PostgreSQL and Gemini. Next: real weather data, CSV import and authentication, without dropping the evidence trail. |
